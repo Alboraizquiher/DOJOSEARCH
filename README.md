@@ -1,5 +1,5 @@
 # PRPYECTO-TRANSVERSAL
-# He creado las diferentes ramas para cada una
+# He creado las diferentes ramas para cada uno
             -Abril
             -Angelo
             -Albora
