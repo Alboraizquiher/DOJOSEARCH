@@ -5,28 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de Sesión</title>
-    <link rel="stylesheet" href="../CSS/login.css">
+    <link rel="stylesheet" href="../assets/css/login.css">
 </head>
 
 <body>
-    <header class="header">
-        <!--Cabezera-->
+    -- TODO: Modificar el contenido del CSS para que se vea como el diseño de la página de Home. --
 
+
+    <div id="navbar">
+        <!--Cabezera-->
         <div class="logo-container">
-            <img src="/PRPYECTO-TRANSVERSAL/LOGIN/IMG/logoDS.png" alt="Logo" class="logo" />
+            <img src="../assets/images/logoDS.png" alt="Logo" class="logo" />
             <h2>DojoSearch</h2>
         </div>
+
         <input type="checkbox" id="menu-toggle" class="menu-toggle" />
-        <label for="menu-toggle" class="menu-icon">&#9776;</label>
+        <label for="menu-toggle" class="menu-toggle-label">&#9776;</label>
 
         <nav class="nav-menu">
-            <a href="/PRPYECTO-TRANSVERSAL/Home html/HTML/html.html" class="active">HOME</a>
+            <a href="index.html" class="active">HOME</a>
             <a href="#">EVENTOS</a>
             <a href="#">EQUIPO</a>
             <a href="#">CONTACTO</a>
-            <a href="/PRPYECTO-TRANSVERSAL/LOGIN/HTML/login.html">PERFIL</a>
+            <a href="/views/login/html/login.html">PERFIL</a>
         </nav>
-    </header>
+    </div>
 
     <section class="hero">
         <div>
@@ -35,12 +38,12 @@
     </section>
 
     <div class="form-container">
-        <form action="../PHP/login.php" method="POST">
+        <form action="/controllers/login/login.php" method="POST">
             <input type="email" name="usuario" placeholder="Ingresa tu correo" required>
             <input type="password" name="password" placeholder="Ingresa tu contraseña" required>
             <a href="#">¿Olvidaste tu contraseña?</a>
             <button type="submit" class="btn">Ingresar</button>
-            <a href="/LOGIN/HTML/loginnoregr.html" class="btn">REGISTRARSE</a>
+            <a href="/views/register/html/register.html" class="btn">REGISTRARSE</a>
         </form>
     </div>
     <div class="footer">
