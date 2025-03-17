@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
-    <link rel="stylesheet" href="/LOGIN/CSS/login.css">
+    <link rel="stylesheet" href="../CSS/login.css">
 </head>
+
 <body>
     <header>
         <!--Cabezera-->
@@ -31,8 +33,8 @@
     </section>
 
     <div class="form-container">
-        
-        <form action="/LOGIN/PHP/regristro.phpPHP/registro.php" method="POST">
+
+        <form action="../PHP/regristro.php" method="POST">
             <input type="text" name="nombre" placeholder="Nombre" required>
             <input type="text" name="apellido" placeholder="Apellido" required>
             <input type="date" name="fecha_nacimiento" required>
@@ -43,7 +45,7 @@
             <input type="password" name="password" placeholder="Contraseña" required>
             <button type="submit" class="btn">Registrarse</button>
         </form>
-       
+
     </div>
     <div class="footer">
         <h3>MANTENTE INFORMADO</h3>
@@ -51,4 +53,5 @@
         <p>Accesibilidad | Términos y condiciones | Política de privacidad</p>
     </div>
 </body>
+
 </html>
