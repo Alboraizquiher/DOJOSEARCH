@@ -281,7 +281,7 @@ body {
    CONTACT SECTION
 ---------------------- */
 .contact {
-    background-image: url("/Home html/IMG/contactanos.jpg");
+    background-image: url("../images/contactanos.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -289,9 +289,6 @@ body {
     padding: 40px 20px;
     text-align: center;
 }
-
-
-
 
 h2 {
     font-size: 2em;
