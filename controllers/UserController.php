@@ -67,7 +67,7 @@ class UserController
             return true;
         } else {
             echo 'Register failed';
-            header('Location: ../../loginnoregr.html');
+            header('Location: ../../register.html');
             return false;
         }
     }
