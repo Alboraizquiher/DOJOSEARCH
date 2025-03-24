@@ -18,7 +18,6 @@ class UserController
     public $username;
     public $password;
     public $name;
-    public $conn;
 
     public function __construct()
     {
@@ -105,8 +104,8 @@ class UserController
       $hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
 
         //Preparar la consulta 
-        $stmt = $connection->prepare("INSERT INTO users (name, password) VALUES (?, ?)"); // Se prepara la consulta con los datos del usuario.
-        $stmt->bind_param('ss', $this->name, $hashedPassword);
+        $stmt = $connection->prepare("INSERT INTO users (name,fecha_born,email, password) VALUES (?, ?, ?, ?)"); // Se prepara la consulta con los datos del usuario.
+        $stmt->bind_param('ssss', $name, $fecha_born, $email, $hashedPassword);
 
          // Si la consulta se ejecuta correctamente, se redirige a la página de inicio de sesión.
          
