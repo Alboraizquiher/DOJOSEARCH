@@ -57,12 +57,16 @@ class UserController
     public function register()
     {
         session_start();//inicio de sesión para poder guardar los datos del usuario.
+
+        // Mostrar errores en pantalla
+        error_reporting(E_ALL);
+        ini_set('display_errors', 1);
         
         require 'db_connection.php';  // Se utilizan variables fijas para probar el registro antes de conectarlo con una base de datos.
        
         // Que el método reciba los datos del usuario y los guarde en la base de datos.
 
-        $name = trim($_POST['username']);
+        $name = trim($_POST['name']);
         $fecha_born = trim($_POST['fecha_born']);
         $email = trim($_POST['email']);
         $password = trim($_POST['password']);
@@ -103,7 +107,7 @@ class UserController
         $stmt->close();
     
       //hashear la contraseña
-      $hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
+      $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         //Preparar la consulta 
         $stmt = $connection->prepare("INSERT INTO users (name,fecha_born,email, password) VALUES (?, ?, ?, ?)"); // Se prepara la consulta con los datos del usuario.
