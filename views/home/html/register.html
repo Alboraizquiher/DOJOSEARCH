@@ -41,14 +41,14 @@
 
     <div class="form-container">
 
-        <form action="/controllers/register/UserController.php" method="POST">
-            <input type="text" name="nombre" placeholder="Nombre" required>
-
-            <input type="date" name="fecha_nacimiento" required>
-
-            <input type="text" name="usuario" placeholder="Correo o Teléfono" required>
+        <form action="/controllers/UserController.php" method="POST">
+            <input type="text" name="name" placeholder="Nombre" required>
+            
+            <input type="date" name="fecha_born" required>
+            
+            <input type="text" name="email" placeholder="Correo electronico" required>
             <input type="password" name="password" placeholder="Contraseña" required>
-            <button type="submit" class="btn">Registrarse</button>
+            <button type="submit" name="register" class="btn">Registrarse</button>
         </form>
 
     </div>
