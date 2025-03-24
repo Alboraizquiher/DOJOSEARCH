@@ -1,8 +1,8 @@
 <?php
 
-  $server = "127.0.0.1";
-  $user = "root";
-$password = "";
+  $server = "10.118.2.73";
+  $user = "Admin";
+$password = "admin < bm,bv.¬kjlm n5";
 $database = "auth_db";
 $port = "3306";
 
