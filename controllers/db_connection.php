@@ -2,7 +2,7 @@
 
 $server = "10.118.2.73";
 $user = "Admin";
-$password = "admin < bm,bv.¬kjlm n5";
+$password = "admin";
 $database = "auth_db";
 $port = "3306";
 
