@@ -19,6 +19,8 @@ class UserController
     public $password;
     public $name;
 
+    public $conn;
+
     public function __construct()
     {
         $servername = "10.118.2.73";
