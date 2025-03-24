@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de Sesión</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/login.css">
+    <link rel="icon" type="image/png" href="../assets/images/logoDS.png" />
+
 </head>
 
 <body>
@@ -23,7 +26,7 @@
         <label for="menu-toggle" class="menu-toggle-label">&#9776;</label>
 
         <nav class="nav-menu">
-            <a href="/views/home/html/index.html" class="active">HOME</a>
+            <a href="../html/index.html" class="active">HOME</a>
             <a href="#">EVENTOS</a>
             <a href="#">EQUIPO</a>
             <a href="#">CONTACTO</a>
@@ -51,6 +54,18 @@
         <p>Tel: 123-456-7890 | Email: info@mysite.com</p>
         <p>Accesibilidad | Términos y condiciones | Política de privacidad</p>
     </div>
-
+    <script>
+        var prevScrollpos = window.pageYOffset;
+        window.onscroll = function () {
+            var currentScrollPos = window.pageYOffset;
+            if (prevScrollpos > currentScrollPos) {
+                document.getElementById("navbar").style.top = "0";
+            } else {
+                document.getElementById("navbar").style.top = "-80px";
+            }
+            prevScrollpos = currentScrollPos;
+        }
+    </script>
 </body>
+
 </html>
