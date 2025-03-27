@@ -56,14 +56,14 @@ class UserController
 
     public function register()
     {
-        session_start();//inicio de sesión para poder guardar los datos del usuario.
+        session_start(); //inicio de sesión para poder guardar los datos del usuario.
 
         // Mostrar errores en pantalla
         error_reporting(E_ALL);
         ini_set('display_errors', 1);
-        
+
         require 'db_connection.php';  // Se utilizan variables fijas para probar el registro antes de conectarlo con una base de datos.
-       
+
         // Que el método reciba los datos del usuario y los guarde en la base de datos.
 
         $name = trim($_POST['name']);
@@ -77,8 +77,8 @@ class UserController
         if (!empty($name)  && !empty($fecha_born) && !empty($email) && !empty($password)) {
 
             //Verificar que el correo no esté registrado
-            
-            $stmt = $connection->prepare("SELECT * FROM users WHERE email = ?"); 
+
+            $stmt = $connection->prepare("SELECT * FROM users WHERE email = ?");
             $stmt->bind_param('s', $email);
             $stmt->execute();
             $stmt->store_result();
@@ -94,48 +94,52 @@ class UserController
             // Verificar que el nombre de usuario no esté registrado
 
             $stmt = $connection->prepare("SELECT idusers FROM users WHERE name = ?");
-        $stmt->bind_param('s', $name);
-        $stmt->execute();
-        $stmt->store_result();
-        
-        // Si el nombre de usuario ya está registrado, se redirige a la página de registro con un mensaje de error.
-        if ($stmt->num_rows > 0) {
-            echo 'Error: El nombre de usuario ya está registrado.';
-            header('Location: ../../registro_nombre_existente.html');
-            exit();
-        }
-        $stmt->close();
-    
-      //hashear la contraseña
-      $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $stmt->bind_param('s', $name);
+            $stmt->execute();
+            $stmt->store_result();
 
-        //Preparar la consulta 
-        $stmt = $connection->prepare("INSERT INTO users (name,fecha_born,email, password) VALUES (?, ?, ?, ?)"); // Se prepara la consulta con los datos del usuario.
-        $stmt->bind_param('ssss', $name, $fecha_born, $email, $hashedPassword);
-
-         // Si la consulta se ejecuta correctamente, se redirige a la página de inicio de sesión.
-         
-        if ($stmt->execute()) {
-            $_SESSION['name'] = $name;
-            echo 'Register success';
-            header('Location: ../../html.html');
-            exit();
-
-        } else {
-            error_log('Error en el registro: ' . $stmt->error);
-            echo 'Error en el registro';
-        }
-        $stmt->close();
-        $connection->close();
-        } else {
-        echo 'Register failed';
-        header('Location: ../../loginnoregr.html');
-        exit();
+            // Si el nombre de usuario ya está registrado, se redirige a la página de registro con un mensaje de error.
+            if ($stmt->num_rows > 0) {
+                echo 'Error: El nombre de usuario ya está registrado.';
+                header('Location: ../../registro_nombre_existente.html');
+                exit();
             }
+            $stmt->close();
+
+            //hashear la contraseña
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+            //Preparar la consulta 
+            $stmt = $connection->prepare("INSERT INTO users (name,fecha_born,email, password) VALUES (?, ?, ?, ?)"); // Se prepara la consulta con los datos del usuario.
+            $stmt->bind_param('ssss', $name, $fecha_born, $email, $hashedPassword);
+
+            // Si la consulta se ejecuta correctamente, se redirige a la página de inicio de sesión.
+
+            if ($stmt->execute()) {
+                $_SESSION['name'] = $name;
+                echo 'Register success';
+                header('Location: ../../html.html');
+                exit();
+            } else {
+                error_log("Error en el registro: {$stmt->error}");
+                echo 'Error en el registro';
+            }
+            $stmt->close();
+            $connection->close();
+        } else {
+            echo 'Register failed';
+            header('Location: ../../loginnoregr.html');
+            exit();
+        }
     }
     public function logout()
     {
+        // Destroy all session data
+        session_unset();
         session_destroy();
-        header('Location: <!-- página inicio -->');
+
+        // Redirect to the homepage or login page
+        header('Location: /index.php');
+        exit();
     }
 }
