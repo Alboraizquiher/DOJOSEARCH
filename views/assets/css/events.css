@@ -6,7 +6,7 @@
 }
 
 body {
-    padding-top: 90vh;
+    padding-top: 1vh;
     min-height: 100vh;
     width: 100%;
     font-size: 16px;
@@ -79,7 +79,7 @@ body {
     position: relative;
     width: 100%;
     height: 400px;
-    background-color: rgba(24, 83, 122, 0.6);
+    background-color: rgba(122, 24, 24, 0.6);
     opacity: 0;
     transition: height linear 0.4s, opacity linear 0.2s;
 }
@@ -100,11 +100,12 @@ body {
 
 .title,
 .price {
-    color: #18537a;
+    color: #7a1818;
     font-size: 1.5em;
     font-weight: bold;
     letter-spacing: 1px;
     margin: 12px;
+    text-align: center;
 }
 
 .info {
@@ -115,7 +116,7 @@ body {
 .separator {
     width: 20%;
     height: 6px;
-    background-color: #17537a;
+    background-color: #7a1717;
     margin-bottom: 16px;
 }
 
@@ -133,13 +134,13 @@ body {
 }
 
 .info i {
-    color: #18537a;
+    color: #7a1818;
     font-size: 1.1em;
     margin-right: 4px;
 }
 
 .info span {
-    color: #18537a;
+    color: #7a1818;
     font-weight: bolder;
 }
 
