@@ -98,7 +98,6 @@ body {
     left: 0;
 }
 
-
 .menu-toggle {
     display: none;
 }
@@ -176,14 +175,14 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: 75vh;
+    height: 90vh;
     padding-top: 60px;
     overflow: hidden;
     background-color: black;
 }
 
 #hero-video {
-    opacity: 0.5;
+    opacity: 0.75;
     position: absolute;
     top: 0;
     left: 0;
