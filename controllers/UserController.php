@@ -116,7 +116,12 @@ class UserController
 
     public function logout()
     {
+        // Destroy all session data
+        session_unset();
         session_destroy();
-        header('Location: <!-- página inicio -->');
+
+        // Redirect to the homepage or login page
+        header('Location: /index.php');
+        exit();
     }
 }
