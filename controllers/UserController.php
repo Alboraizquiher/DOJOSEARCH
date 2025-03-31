@@ -35,107 +35,95 @@ class UserController
         }
     }
     public function login()
-<<<<<<< HEAD
     {
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        $stmt = $this->conn->prepare("SELECT email, password FROM users WHERE email = ? AND password = ?");
-        $stmt->bind_param("ss", $email, $password);
+        // Consulta para obtener el hash de la contraseña de la base de datos
+        $stmt = $this->conn->prepare("SELECT email, password FROM users WHERE email = ?");
+        $stmt->bind_param("s", $email);  // No necesitas pasar la contraseña en esta consulta
         $stmt->execute();
+        $stmt->store_result();
 
-        if ($stmt->fetch()) {
-            $_SESSION['email'] = $email;
-=======
-{
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+        // Verifica si se encontró un usuario con el email proporcionado
+        if ($stmt->num_rows > 0) {
+            $stmt->bind_result($db_email, $db_password);  // Asigna el resultado a las variables
+            $stmt->fetch();
 
-    // Consulta para obtener el hash de la contraseña de la base de datos
-    $stmt = $this->conn->prepare("SELECT email, password FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);  // No necesitas pasar la contraseña en esta consulta
-    $stmt->execute();
-    $stmt->store_result();
-
-    // Verifica si se encontró un usuario con el email proporcionado
-    if ($stmt->num_rows > 0) {
-        $stmt->bind_result($db_email, $db_password);  // Asigna el resultado a las variables
-        $stmt->fetch();
-
-        // Verifica si la contraseña ingresada coincide con el hash almacenado
-        if (password_verify($password, $db_password)) {
-            // Si las contraseñas coinciden, inicia sesión
-            $_SESSION['email'] = $db_email;
->>>>>>> ebb18b970e7f34f3c1ff7323c13f1943e7c34563
-            echo 'Login success';
+            // Verifica si la contraseña ingresada coincide con el hash almacenado
+            if (password_verify($password, $db_password)) {
+                // Si las contraseñas coinciden, inicia sesión
+                $_SESSION['email'] = $db_email;
+                echo 'Login success';
+            } else {
+                // Si la contraseña no coincide
+                echo 'Login failed';
+            }
         } else {
-            // Si la contraseña no coincide
+            // Si no se encuentra un usuario con ese email
             echo 'Login failed';
         }
-    } else {
-        // Si no se encuentra un usuario con ese email
-        echo 'Login failed';
+
+        $stmt->close();
     }
 
-    $stmt->close();
-}
 
     public function register()
-{
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        http_response_code(405);
-        die("Error 405: Método no permitido");
-    }
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            die("Error 405: Método no permitido");
+        }
 
-    // Capturar datos del formulario
-    $name = trim($_POST['name']);
-    $fecha_born = trim($_POST['fecha_born']);
-    $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
+        // Capturar datos del formulario
+        $name = trim($_POST['name']);
+        $fecha_born = trim($_POST['fecha_born']);
+        $email = trim($_POST['email']);
+        $password = trim($_POST['password']);
 
-    //  Imprimir datos para depuración
-    echo "Nombre: $name <br>";
-    echo "Fecha de nacimiento: $fecha_born <br>";
-    echo "Correo: $email <br>";
-    echo "Contraseña (sin hash): $password <br>";
+        //  Imprimir datos para depuración
+        echo "Nombre: $name <br>";
+        echo "Fecha de nacimiento: $fecha_born <br>";
+        echo "Correo: $email <br>";
+        echo "Contraseña (sin hash): $password <br>";
 
-    // Verificar que no estén vacíos
-    if (empty($name) || empty($fecha_born) || empty($email) || empty($password)) {
-        die('Error: Todos los campos son obligatorios.');
-    }
+        // Verificar que no estén vacíos
+        if (empty($name) || empty($fecha_born) || empty($email) || empty($password)) {
+            die('Error: Todos los campos son obligatorios.');
+        }
 
-    // Verificar si el correo ya existe
-    $stmt = $this->conn->prepare("SELECT idusers FROM users WHERE email = ?");
-    $stmt->bind_param('s', $email);
-    $stmt->execute();
-    $stmt->store_result();
+        // Verificar si el correo ya existe
+        $stmt = $this->conn->prepare("SELECT idusers FROM users WHERE email = ?");
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $stmt->store_result();
 
-    if ($stmt->num_rows > 0) {
-        die('Error: Este correo ya está registrado.');
-    }
-    $stmt->close();
-
-    // Hashear la contraseña
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    echo "Contraseña hasheada: $hashedPassword <br>";
-
-    // Insertar usuario en la base de datos
-    $stmt = $this->conn->prepare("INSERT INTO users (name, fecha_born, email, password) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param('ssss', $name, $fecha_born, $email, $hashedPassword);
-
-    if ($stmt->execute()) {
-        echo 'Registro exitoso!';
+        if ($stmt->num_rows > 0) {
+            die('Error: Este correo ya está registrado.');
+        }
         $stmt->close();
-        $this->conn->close();
-        header('Location: ../views/html/login.html');
-        exit();
-    } else {
-        $stmt->close();
-        $this->conn->close();
-        header('Location: ../views/html/register.html');
-        exit();
+
+        // Hashear la contraseña
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        echo "Contraseña hasheada: $hashedPassword <br>";
+
+        // Insertar usuario en la base de datos
+        $stmt = $this->conn->prepare("INSERT INTO users (name, fecha_born, email, password) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param('ssss', $name, $fecha_born, $email, $hashedPassword);
+
+        if ($stmt->execute()) {
+            echo 'Registro exitoso!';
+            $stmt->close();
+            $this->conn->close();
+            header('Location: ../views/html/login.html');
+            exit();
+        } else {
+            $stmt->close();
+            $this->conn->close();
+            header('Location: ../views/html/register.html');
+            exit();
+        }
     }
-}
 
 
     public function logout()
