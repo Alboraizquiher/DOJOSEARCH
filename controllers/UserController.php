@@ -39,15 +39,15 @@ class UserController
     }
     public function login()
     {
-        $username = $_POST['username'];
+        $email = $_POST['email'];
         $password = $_POST['password'];
 
-        $stmt = $this->conn->prepare("SELECT name, password FROM users WHERE username = ? AND password = ?");
-        $stmt->bind_param("ss", $username, $password);
+        $stmt = $this->conn->prepare("SELECT email, password FROM users WHERE email = ? AND password = ?");
+        $stmt->bind_param("ss", $email, $password);
         $stmt->execute();
 
         if ($stmt->fetch()) {
-            $_SESSION['username'] = $username;
+            $_SESSION['email'] = $email;
             echo 'Login success';
         } else {
             echo 'Login failed';
