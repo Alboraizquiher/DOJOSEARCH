@@ -1,5 +1,6 @@
 <?php
 session_start();
+require 'db_connection.php';
 
 $user = new UserController();
 
@@ -15,10 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 class UserController
 {
-    public $username;
-    public $password;
-    public $name;
-
     public $conn;
 
     public function __construct()
@@ -38,6 +35,7 @@ class UserController
         }
     }
     public function login()
+<<<<<<< HEAD
     {
         $email = $_POST['email'];
         $password = $_POST['password'];
@@ -48,11 +46,39 @@ class UserController
 
         if ($stmt->fetch()) {
             $_SESSION['email'] = $email;
+=======
+{
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Consulta para obtener el hash de la contraseña de la base de datos
+    $stmt = $this->conn->prepare("SELECT email, password FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);  // No necesitas pasar la contraseña en esta consulta
+    $stmt->execute();
+    $stmt->store_result();
+
+    // Verifica si se encontró un usuario con el email proporcionado
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($db_email, $db_password);  // Asigna el resultado a las variables
+        $stmt->fetch();
+
+        // Verifica si la contraseña ingresada coincide con el hash almacenado
+        if (password_verify($password, $db_password)) {
+            // Si las contraseñas coinciden, inicia sesión
+            $_SESSION['email'] = $db_email;
+>>>>>>> ebb18b970e7f34f3c1ff7323c13f1943e7c34563
             echo 'Login success';
         } else {
+            // Si la contraseña no coincide
             echo 'Login failed';
         }
+    } else {
+        // Si no se encuentra un usuario con ese email
+        echo 'Login failed';
     }
+
+    $stmt->close();
+}
 
     public function register()
 {
@@ -60,9 +86,6 @@ class UserController
         http_response_code(405);
         die("Error 405: Método no permitido");
     }
-
-    session_start();
-    require 'db_connection.php';
 
     // Capturar datos del formulario
     $name = trim($_POST['name']);
@@ -104,12 +127,13 @@ class UserController
         echo 'Registro exitoso!';
         $stmt->close();
         $this->conn->close();
-        header('Location: ../../html.html');
+        header('Location: ../views/html/login.html');
         exit();
     } else {
         $stmt->close();
         $this->conn->close();
-        die('Error en el registro: ' . $stmt->error);
+        header('Location: ../views/html/register.html');
+        exit();
     }
 }
 
