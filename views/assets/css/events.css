@@ -25,22 +25,9 @@ body {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    background-color: transparent;
 }
 
-@media (max-width: 768px) {
-    body {
-        padding-top: 185vh;
-    }
-
-    #navbar {
-        height: auto;
-        padding: 10px 15px;
-    }
-
-    .container {
-        margin-top: 70px; /* Asegura que los eventos no se solapen */
-    }
-}
 
 .item-container {
     position: relative;
