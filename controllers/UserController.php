@@ -55,6 +55,8 @@ class UserController
             // Si las contraseñas coinciden, inicia sesión
             $_SESSION['email'] = $db_email;
             echo 'Login success';
+           
+            
         } else {
             // Si la contraseña no coincide
             echo 'Login failed';

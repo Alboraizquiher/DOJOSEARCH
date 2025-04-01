@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DojoSearch - Inicio de Sesión</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/login.css">
+    <link rel="icon" type="image/png" href="../assets/images/logoDS.png" />
+
+</head>
+
+
+<body>
+    <div id="navbar">
+        <div class="logo-container">
+            <a href="../html/index.html" class="logo-link">
+                <img src="../assets/images/logoDS.png" alt="Logo" class="logo" />
+                <h2>DojoSearch</h2>
+            </a>
+        </div>
+
+        <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+        <label for="menu-toggle" class="menu-toggle-label">&#9776;</label>
+
+        <nav class="nav-menu">
+            <a href="../html/events.html">EVENTOS</a>
+            <a href="#">EQUIPO</a>
+            <a href="#">CONTACTO</a>
+            <a href="../html/login.html">PERFIL</a>
+        </nav>
+    </div>
+
+    <section class="hero">
+        <div>
+            <h1>Iniciar Sesión</h1>
+        </div>
+    </section>
+
+    <div class="form-container">
+        <form action="../../controllers/UserController.php" method="POST" enctype="multipart/form-data">
+            <input type="email" name="email" placeholder="Ingresa tu correo" required>
+            <input type="password" name="password" placeholder="Ingresa tu contraseña" required>
+            <a href="#">¿Olvidaste tu contraseña?</a>
+            <button type="submit" name="login" class="btn">Ingresar</button>
+            <a href="../html/register.html" class="btn">REGISTRARSE</a>
+        </form>
+    </div>
+    <div class="footer">
+        <h3>MANTENTE INFORMADO</h3>
+        <p>Tel: 123-456-7890 | Email: info@mysite.com</p>
+        <p>Accesibilidad | Términos y condiciones | Política de privacidad</p>
+    </div>
+    <script>
+        var prevScrollpos = window.pageYOffset;
+        window.onscroll = function () {
+            var currentScrollPos = window.pageYOffset;
+            if (prevScrollpos > currentScrollPos) {
+                document.getElementById("navbar").style.top = "0";
+            } else {
+                document.getElementById("navbar").style.top = "-80px";
+            }
+            prevScrollpos = currentScrollPos;
+        }
+    </script>
+</body>
+
+</html>
