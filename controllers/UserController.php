@@ -40,23 +40,30 @@ class UserController
         $password = $_POST['password'];
 
         // Consulta para obtener el hash de la contraseña de la base de datos
-        $stmt = $this->conn->prepare("SELECT email, password FROM users WHERE email = ?");
+        $stmt = $this->conn->prepare("SELECT email, password, is_admin FROM users WHERE email = ?");
         $stmt->bind_param("s", $email);  // No necesitas pasar la contraseña en esta consulta
         $stmt->execute();
         $stmt->store_result();
 
         // Verifica si se encontró un usuario con el email proporcionado
         if ($stmt->num_rows > 0) {
-            $stmt->bind_result($db_email, $db_password);  // Asigna el resultado a las variables
+            $stmt->bind_result($db_email, $db_password, $is_admin);  // Asigna el resultado a las variables
             $stmt->fetch();
 
         // Verifica si la contraseña ingresada coincide con el hash almacenado
         if (password_verify($password, $db_password)) {
             // Si las contraseñas coinciden, inicia sesión
             $_SESSION['email'] = $db_email;
+            $_SESSION['is_admin'] = $is_admin;
             echo 'Login success';
            
+            if ($is_admin == 1) {
+                echo 'Login success - Eres Administrador';
+            } else {
+                echo 'Login success - Eres Usuario Normal';
+            }  
             
+
         } else {
             // Si no se encuentra un usuario con ese email
             echo 'Login failed';
