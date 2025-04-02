@@ -1,89 +1,306 @@
-.hero {
-    height: 40vh; 
-    min-height: auto;
+/* ---------------------- 
+   OVERRIDES Y RESET 
+---------------------- */
+.login-nav {
+    background: rgba(10, 10, 10, 0.95) !important;
+    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Formulario de registro */
-.form-container {
+.login-nav.scrolled {
+    transform: translateY(0) !important;
+}
+
+/* ---------------------- 
+   HERO SECTION 
+---------------------- */
+.auth-hero {
+    position: relative;
+    height: 65vh;
+    min-height: 600px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: calc(100vh - 200px);
-    background-color: #f8f9fa;
+    align-items: flex-end;
+
+
+    background:
+        linear-gradient(135deg,
+            rgba(0, 0, 0, 0.95) 0%,
+            rgba(126, 0, 0, 0.4) 100%),
+        url('../assets/images/login-bg.jpg') center/cover fixed;
+
+    background-blend-mode: multiply;
+
+
+    padding: 0 2rem 6rem;
+    overflow: hidden;
 }
 
-form {
-    background-color: #ffffff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    width: 320px;
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgba(10, 10, 10, 1) 100%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
     text-align: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 5rem;
+    letter-spacing: 4px;
+    color: #fff;
+    margin-bottom: 1rem;
+    text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.3);
+}
+
+.hero-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+/* ---------------------- 
+   FORM SECTION 
+---------------------- */
+.auth-container {
+    position: relative;
+    z-index: 3;
+    padding: 4rem 1rem;
+    background: #0a0a0a;
+}
+
+.auth-card {
+    max-width: 500px;
+    margin: -100px auto 0;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    border: 1px solid rgba(126, 0, 0, 0.3);
+    box-shadow: 0 30px 50px rgba(0, 0, 0, 0.3);
+    padding: 3rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.martial-form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 1.5rem;
 }
 
-form h2 {
-    margin-bottom: 15px;
-    color: #333;
-}
-
-form input[type="email"],
-form input[type="password"] {
+.form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
     width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 16px;
 }
 
-form label {
-    display: block;
-    font-size: 14px;
-    color: #555;
+.form-input {
+    width: 354.4px;
+    padding: 1.2rem 1.2rem 1.2rem 3.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
 }
 
-form button {
-    width: 100%;
-    padding: 12px;
-    background-color: #7e0000;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background 0.3s ease-in-out;
+.form-input:focus {
+    border-color: #7e0000;
+    background: rgba(126, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(126, 0, 0, 0.2);
+    padding-left: 1.2rem;
 }
 
-form button:hover {
-    background-color: #5e0000;
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    fill: rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+    pointer-events: none;
 }
 
-a.btn {
-    display: block;
-    padding: 12px;
-    background-color: #7e0000;
-    color: white;
+.form-input:focus {
+    padding-left: 1.2rem;
+}
+
+.form-input:focus~.input-icon {
+    opacity: 0;
+    left: 0.5rem;
+
+    transform: translateY(-50%) translateX(-10px);
+}
+
+.forgot-password {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    text-align: right;
     text-decoration: none;
-    border-radius: 6px;
-    text-align: center;
-    transition: background 0.3s ease-in-out;
-    font-size: 16px;
+    transition: color 0.3s ease;
 }
 
-a.btn:hover {
-    background-color: #5e0000;
-}
-
-form a {
-    display: block;
-    font-size: 14px;
+.forgot-password:hover {
     color: #7e0000;
-    text-decoration: none;
-    margin-bottom: 10px;
 }
 
-form a:hover {
-    text-decoration: underline;
+
+
+/* ---------------------- 
+   BOTONES 
+---------------------- */
+.martial-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.2rem;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    text-decoration: none;
+}
+
+.primary {
+    background: #7e0000;
+    color: #fff;
+}
+
+.primary:hover {
+    background: #a30000;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(126, 0, 0, 0.3);
+}
+
+.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.secondary:hover {
+    background: rgba(126, 0, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+.btn-icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+/* ---------------------- 
+   DIVIDER 
+---------------------- */
+.auth-divider {
+    position: relative;
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.auth-divider span {
+    padding: 0 1rem;
+    background: #0a0a0a;
+    position: relative;
+    z-index: 2;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+}
+
+.auth-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 1;
+}
+
+/* ---------------------- 
+   RESPONSIVE 
+---------------------- */
+@media (max-width: 768px) {
+    .auth-hero {
+        height: 50vh;
+        min-height: 400px;
+        padding-bottom: 4rem;
+    }
+
+    .hero-title {
+        font-size: 3.5rem;
+    }
+
+    .auth-card {
+        margin-top: -80px;
+        padding: 2rem 1.5rem;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 1rem 1rem 1rem 3rem;
+    }
+
+    .input-icon {
+        left: 1rem;
+    }
+
+    .btn-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .martial-btn {
+        font-size: 1rem;
+        padding: 1rem;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .martial-btn {
+        flex-direction: column;
+        gap: 8px;
+        font-size: 0.7em;
+    }
+
+    .martial-btn span {
+        order: 2;
+    }
+
+    .btn-icon {
+        order: 1;
+    }
+
+    .form-input {
+        width: 284.8px;
+    }
 }
