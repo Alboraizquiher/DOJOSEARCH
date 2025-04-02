@@ -50,15 +50,13 @@ class UserController
             $stmt->bind_result($db_email, $db_password);  // Asigna el resultado a las variables
             $stmt->fetch();
 
-            // Verifica si la contraseña ingresada coincide con el hash almacenado
-            if (password_verify($password, $db_password)) {
-                // Si las contraseñas coinciden, inicia sesión
-                $_SESSION['email'] = $db_email;
-                echo 'Login success';
-            } else {
-                // Si la contraseña no coincide
-                echo 'Login failed';
-            }
+        // Verifica si la contraseña ingresada coincide con el hash almacenado
+        if (password_verify($password, $db_password)) {
+            // Si las contraseñas coinciden, inicia sesión
+            $_SESSION['email'] = $db_email;
+            echo 'Login success';
+           
+            
         } else {
             // Si no se encuentra un usuario con ese email
             echo 'Login failed';
@@ -66,7 +64,7 @@ class UserController
 
         $stmt->close();
     }
-
+    }
 
     public function register()
     {
