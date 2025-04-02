@@ -184,13 +184,92 @@
         </div>
     </div>
 
-    <div class="footer">
-        <h3>MANTENTE INFORMADO</h3>
-        <p>Tel: 123-456-7890 | Email: info@mysite.com</p>
-        <p>Accesibilidad | Términos y condiciones | Política de privacidad</p>
-    </div>
-    </div>
+    <footer class="martial-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <div class="footer-brand">
+                        <img src="../assets/images/logoDS.png" alt="DojoSearch Logo" class="footer-logo">
+                        <h3 class="footer-title">DojoSearch</h3>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <img src="../assets/images/social-media/instagram.png" alt="Instagram">
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <img src="../assets/images/social-media/facebook.png" alt="Facebook">
+                        </a>
+                        <a href="#" class="social-icon" aria-label="YouTube">
+                            <img src="../assets/images/social-media/youtube.png" alt="YouTube">
+                        </a>
+                        <a href="#" class="social-icon" aria-label="LinkedIn">
+                            <img src="../assets/images/social-media/linkedin.png" alt="LinkedIn">
+                        </a>
+                    </div>
+                    <div class="newsletter">
+                        <h4>Recibe novedades</h4>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Tu mejor email" required>
+                            <button type="submit">Enviar</button>
+                        </form>
+                    </div>
+                </div>
 
+                <div class="footer-column">
+                    <h4 class="footer-heading">Explora</h4>
+                    <ul class="footer-links">
+                        <li><a href="../html/events.html">Eventos</a></li>
+                        <li><a href="../html/login.html">Mi Perfil</a></li>
+                        <li><a href="#">Galería</a></li>
+                        <li><a href="#">Blog Marcial</a></li>
+                        <li><a href="#">Tienda</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4 class="footer-heading">Contacto</h4>
+                    <ul class="contact-info">
+                        <li>
+                            <img src="../assets/images/icons/pin.png" alt="Ubicación">
+                            <span>500 Terry Francine St<br>San Francisco, CA 94158</span>
+                        </li>
+                        <li>
+                            <img src="../assets/images/icons/phone.png" alt="Teléfono">
+                            <span>123-456-7890</span>
+                        </li>
+                        <li>
+                            <img src="../assets/images/icons/email.png" alt="Email">
+                            <span>info@dojosearch.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                <div class="legal-links">
+                    <a href="#">Accesibilidad</a>
+                    <a href="#">Términos y condiciones</a>
+                    <a href="#">Política de privacidad</a>
+                </div>
+                <p class="copyright">&copy; 2023 DojoSearch. Todos los derechos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        var prevScrollpos = window.pageYOffset;
+        window.onscroll = function () {
+            var currentScrollPos = window.pageYOffset;
+            if (prevScrollpos > currentScrollPos) {
+                document.getElementById("navbar").style.top = "0";
+            } else {
+                document.getElementById("navbar").style.top = "-80px";
+            }
+            prevScrollpos = currentScrollPos;
+        }
+    </script>
 </body>
 
 </html>
