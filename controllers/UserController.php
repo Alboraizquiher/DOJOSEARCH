@@ -50,27 +50,28 @@ class UserController
             $stmt->bind_result($db_email, $db_password, $is_admin);  // Asigna el resultado a las variables
             $stmt->fetch();
 
-        // Verifica si la contraseña ingresada coincide con el hash almacenado
-        if (password_verify($password, $db_password)) {
-            // Si las contraseñas coinciden, inicia sesión
-            $_SESSION['email'] = $db_email;
-            $_SESSION['is_admin'] = $is_admin;
-            echo 'Login success';
-           
-            if ($is_admin == 1) {
-                echo 'Login success - Eres Administrador';
+            // Verifica si la contraseña ingresada coincide con el hash almacenado
+            if (password_verify($password, $db_password)) {
+                // Si las contraseñas coinciden, inicia sesión
+                $_SESSION['email'] = $db_email;
+                $_SESSION['is_admin'] = $is_admin;
+                echo 'Login success';
+
+                if ($is_admin == 1) {
+                    echo 'Login success - Eres Administrador';
+                    header(header: 'Location: ../views/html/user.html');
+                } else {
+                    echo 'Login success - Eres Usuario Normal';
+                    header(header: 'Location: ../views/html/user.html');
+                    exit();
+                }
             } else {
-                echo 'Login success - Eres Usuario Normal';
-            }  
-            
+                // Si no se encuentra un usuario con ese email
+                echo 'Login failed';
+            }
 
-        } else {
-            // Si no se encuentra un usuario con ese email
-            echo 'Login failed';
+            $stmt->close();
         }
-
-        $stmt->close();
-    }
     }
 
     public function register()
@@ -129,7 +130,6 @@ class UserController
             exit();
         }
     }
-
 
     public function logout()
     {

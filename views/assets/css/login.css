@@ -1,9 +1,10 @@
 /* ---------------------- 
-   OVERRIDES Y RESET 
+   NAVBAR STYLES 
 ---------------------- */
 .login-nav {
-    background: rgba(10, 10, 10, 0.95) !important;
+    background: rgba(10, 10, 10, 0.98) !important;
     backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(126, 0, 0, 0.3);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -14,24 +15,17 @@
 /* ---------------------- 
    HERO SECTION 
 ---------------------- */
-.auth-hero {
+.login-hero {
     position: relative;
-    height: 65vh;
-    min-height: 600px;
+    height: 60vh;
+    min-height: 500px;
     display: flex;
-    align-items: flex-end;
-
-
-    background:
-        linear-gradient(135deg,
-            rgba(0, 0, 0, 0.95) 0%,
-            rgba(126, 0, 0, 0.4) 100%),
-        url('../assets/images/login-bg.jpg') center/cover fixed;
-
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(126, 0, 0, 0.4) 100%), 
+                url('../assets/images/login-bg.jpg') center/cover no-repeat;
     background-blend-mode: multiply;
-
-
-    padding: 0 2rem 6rem;
+    padding: 0 2rem;
     overflow: hidden;
 }
 
@@ -41,7 +35,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgba(10, 10, 10, 1) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(10,10,10,1) 100%);
     z-index: 1;
 }
 
@@ -54,13 +48,19 @@
     margin: 0 auto;
 }
 
+.hero-text {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
 .hero-title {
     font-family: 'Bebas Neue', cursive;
-    font-size: 5rem;
+    font-size: 4.5rem;
     letter-spacing: 4px;
     color: #fff;
     margin-bottom: 1rem;
-    text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.3);
+    text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
+    line-height: 1.1;
 }
 
 .hero-subtitle {
@@ -68,89 +68,217 @@
     font-size: 1.5rem;
     font-weight: 300;
     letter-spacing: 1px;
+    margin-bottom: 2rem;
+}
+
+.hero-divider {
+    width: 100px;
+    height: 3px;
+    background: #7e0000;
+    margin: 1.5rem auto;
+    border-radius: 2px;
 }
 
 /* ---------------------- 
-   FORM SECTION 
+   LOGIN CONTAINER 
 ---------------------- */
-.auth-container {
+.login-container {
     position: relative;
-    z-index: 3;
     padding: 4rem 1rem;
     background: #0a0a0a;
+    max-width: 1200px; /* Añadido para limitar el ancho máximo */
+    margin: 0 auto; /* Centrar el contenedor */
 }
 
-.auth-card {
-    max-width: 500px;
-    margin: -100px auto 0;
-    background: rgba(255, 255, 255, 0.03);
+.login-card {
+    margin: -80px auto 0;
+    background: rgba(20, 20, 20, 0.8);
     backdrop-filter: blur(15px);
-    border-radius: 20px;
+    border-radius: 15px;
     border: 1px solid rgba(126, 0, 0, 0.3);
-    box-shadow: 0 30px 50px rgba(0, 0, 0, 0.3);
-    padding: 3rem 2rem;
+    box-shadow: 0 30px 50px rgba(0, 0, 0, 0.4);
+    padding:  3.5rem 3rem;
     position: relative;
     overflow: hidden;
 }
 
+.login-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: #7e0000;
+}
+
+.card-header {
+    text-align: center;
+    margin-bottom: 2.5rem; 
+}
+
+.card-header h3 {
+    color: #fff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+}
+
+.divider-small {
+    width: 60px;
+    height: 2px;
+    background: #7e0000;
+    margin: 0 auto;
+    border-radius: 2px;
+}
+
+/* ---------------------- 
+   FORM STYLES 
+---------------------- */
 .martial-form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
 .form-group {
+    margin-bottom: 2rem;
+}
+
+.form-label {
+    display: block;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.input-container {
     position: relative;
-    margin-bottom: 1.5rem;
-    width: 100%;
 }
 
 .form-input {
-    width: 354.4px;
-    padding: 1.2rem 1.2rem 1.2rem 3.5rem;
+    width: 100%;
+    padding: 1.2rem 1.2rem 1.2rem 3.5rem; /* Aumentado */
+    font-size: 1.05rem; /* Ligeramente más grande */
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    box-sizing: border-box;
+    border: 1px solid rgba(126, 0, 0, 0.3);
+    border-radius: 8px;
     color: #fff;
-    font-size: 1rem;
     transition: all 0.3s ease;
 }
 
 .form-input:focus {
     border-color: #7e0000;
     background: rgba(126, 0, 0, 0.1);
-    box-shadow: 0 4px 15px rgba(126, 0, 0, 0.2);
-    padding-left: 1.2rem;
+    box-shadow: 0 0 0 3px rgba(126, 0, 0, 0.2);
+    outline: none;
 }
 
 .input-icon {
     position: absolute;
-    left: 1rem;
+    width: 22px; /* Aumentado */
+    height: 22px; /* Aumentado */
+    left: 1.2rem; /* Ajustado */
     top: 50%;
     transform: translateY(-50%);
-    width: 24px;
-    height: 24px;
     fill: rgba(255, 255, 255, 0.6);
     transition: all 0.3s ease;
-    pointer-events: none;
 }
 
-.form-input:focus {
-    padding-left: 1.2rem;
+.form-input:focus ~ .input-icon {
+    fill: #7e0000;
 }
 
-.form-input:focus~.input-icon {
+.toggle-password {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.toggle-password svg {
+    width: 20px;
+    height: 20px;
+    fill: rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+}
+
+.toggle-password:hover svg {
+    fill: #7e0000;
+}
+
+/* ---------------------- 
+   FORM OPTIONS 
+---------------------- */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    cursor: pointer;
+    position: relative;
+}
+
+.remember-me input {
+    position: absolute;
     opacity: 0;
-    left: 0.5rem;
+    cursor: pointer;
+}
 
-    transform: translateY(-50%) translateX(-10px);
+.checkmark {
+    display: inline-block;
+    width: 20px; /* Aumentado */
+    height: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(126, 0, 0, 0.5);
+    border-radius: 4px;
+    margin-right: 8px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.remember-me:hover .checkmark {
+    border-color: #7e0000;
+}
+
+.remember-me input:checked ~ .checkmark {
+    background: #7e0000;
+    border-color: #7e0000;
+}
+
+.checkmark::after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.remember-me input:checked ~ .checkmark::after {
+    display: block;
 }
 
 .forgot-password {
     color: rgba(255, 255, 255, 0.7);
     font-size: 0.9rem;
-    text-align: right;
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -159,53 +287,50 @@
     color: #7e0000;
 }
 
-
-
 /* ---------------------- 
-   BOTONES 
+   BUTTON STYLES 
 ---------------------- */
 .martial-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-    padding: 1.2rem;
-    border-radius: 10px;
-    font-size: 1.1rem;
-    font-weight: 500;
+    gap: 0.8rem;
+    padding: 1.2rem; /* Aumentado */
+    font-size: 1.15rem; /* Aumentado */
+    border-radius: 8px;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
     transition: all 0.3s ease;
     border: none;
     text-decoration: none;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
 }
 
 .primary {
     background: #7e0000;
     color: #fff;
+    box-shadow: 0 4px 15px rgba(126, 0, 0, 0.3);
 }
 
 .primary:hover {
     background: #a30000;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(126, 0, 0, 0.3);
-}
-
-.secondary {
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-}
-
-.secondary:hover {
-    background: rgba(126, 0, 0, 0.4);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(126, 0, 0, 0.4);
 }
 
 .btn-icon {
     width: 20px;
     height: 20px;
     fill: currentColor;
+    transition: transform 0.3s ease;
+}
+
+.primary:hover .btn-icon {
+    transform: translateX(5px);
 }
 
 /* ---------------------- 
@@ -213,13 +338,13 @@
 ---------------------- */
 .auth-divider {
     position: relative;
-    margin: 2rem 0;
+    margin: 1.5rem 0;
     text-align: center;
 }
 
 .auth-divider span {
     padding: 0 1rem;
-    background: #0a0a0a;
+    background: rgba(20, 20, 20, 0.8);
     position: relative;
     z-index: 2;
     color: rgba(255, 255, 255, 0.5);
@@ -238,69 +363,118 @@
 }
 
 /* ---------------------- 
-   RESPONSIVE 
+   SOCIAL LOGIN 
+---------------------- */
+.social-login {
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+.social-login p {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.social-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.social-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem; /* Aumentado */
+    font-size: 1rem; /* Aumentado */
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.social-btn svg {
+    width: 20px; /* Aumentado */
+    height: 20px; /* Aumentado */
+}
+
+.social-btn.google:hover {
+    background: rgba(219, 68, 55, 0.1);
+    border-color: rgba(219, 68, 55, 0.3);
+    color: #fff;
+}
+
+.social-btn.facebook:hover {
+    background: rgba(59, 89, 152, 0.1);
+    border-color: rgba(59, 89, 152, 0.3);
+    color: #fff;
+}
+
+/* ---------------------- 
+   REGISTER LINK 
+---------------------- */
+.register-link {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    margin-top: 1rem;
+}
+
+.register-link a {
+    color: #7e0000;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+/* ---------------------- 
+   RESPONSIVE DESIGN 
 ---------------------- */
 @media (max-width: 768px) {
-    .auth-hero {
+    .login-hero {
         height: 50vh;
         min-height: 400px;
-        padding-bottom: 4rem;
     }
 
     .hero-title {
         font-size: 3.5rem;
     }
 
-    .auth-card {
-        margin-top: -80px;
-        padding: 2rem 1.5rem;
+    .hero-subtitle {
+        font-size: 1.2rem;
     }
 
-    .form-input {
-        width: 100%;
-        padding: 1rem 1rem 1rem 3rem;
-    }
-
-    .input-icon {
-        left: 1rem;
-    }
-
-    .btn-icon {
-        width: 18px;
-        height: 18px;
-    }
-
-    .martial-btn {
-        font-size: 1rem;
-        padding: 1rem;
-    }
-
-    .form-group {
-        margin-bottom: 1rem;
+    .login-card {
+        margin-top: -60px;
+        max-width: 90%; /* Más ancho en móviles */
+        padding: 2.5rem 2rem; /* Padding reducido pero aún generoso */
     }
 }
 
 @media (max-width: 480px) {
-    .btn-icon {
-        width: 18px;
-        height: 18px;
+    .hero-title {
+        font-size: 2.5rem;
     }
 
-    .martial-btn {
+    .social-buttons {
         flex-direction: column;
-        gap: 8px;
-        font-size: 0.7em;
     }
 
-    .martial-btn span {
-        order: 2;
+    .social-btn {
+        justify-content: center;
     }
-
-    .btn-icon {
-        order: 1;
+    .login-card {
+        padding: 2rem 1.5rem;
     }
-
     .form-input {
-        width: 284.8px;
+        padding: 1rem 1rem 1rem 3rem; /* Ajustado para móviles */
     }
 }

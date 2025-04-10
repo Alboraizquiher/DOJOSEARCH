@@ -1,24 +1,27 @@
 /* ---------------------- 
-   REGISTER MAIN STYLES 
+   NAVBAR STYLES 
 ---------------------- */
-.auth-hero {
+.login-nav {
+    background: rgba(10, 10, 10, 0.98) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(126, 0, 0, 0.3);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---------------------- 
+   HERO SECTION 
+---------------------- */
+.register-hero {
     position: relative;
-    height: 65vh;
-    min-height: 600px;
+    height: 60vh;
+    min-height: 500px;
     display: flex;
-    align-items: flex-end;
-
-
-    background:
-        linear-gradient(135deg,
-            rgba(0, 0, 0, 0.96) 20%,
-            rgba(126, 0, 0, 0.35) 80%),
-        url('../assets/images/register-bg.jpg') center/cover fixed;
-
-    background-blend-mode: soft-light;
-
-
-    padding: 0 2rem 6rem;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(126, 0, 0, 0.4) 100%), 
+                url('../assets/images/register-bg.jpg') center/cover no-repeat;
+    background-blend-mode: multiply;
+    padding: 0 2rem;
     overflow: hidden;
 }
 
@@ -28,7 +31,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgba(10, 10, 10, 1) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(10,10,10,1) 100%);
     z-index: 1;
 }
 
@@ -41,13 +44,19 @@
     margin: 0 auto;
 }
 
+.hero-text {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
 .hero-title {
     font-family: 'Bebas Neue', cursive;
-    font-size: 5rem;
+    font-size: 4.5rem;
     letter-spacing: 4px;
     color: #fff;
     margin-bottom: 1rem;
-    text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.3);
+    text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
+    line-height: 1.1;
 }
 
 .hero-subtitle {
@@ -55,46 +64,117 @@
     font-size: 1.5rem;
     font-weight: 300;
     letter-spacing: 1px;
+    margin-bottom: 2rem;
+}
+
+.hero-divider {
+    width: 100px;
+    height: 3px;
+    background: #7e0000;
+    margin: 1.5rem auto;
+    border-radius: 2px;
+}
+
+/* ---------------------- 
+   REGISTER CONTAINER 
+---------------------- */
+.register-container {
+    position: relative;
+    padding: 4rem 1rem;
+    background: #0a0a0a;
+}
+
+.register-card {
+    margin: -80px auto 0;
+    background: rgba(20, 20, 20, 0.8);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    border: 1px solid rgba(126, 0, 0, 0.3);
+    box-shadow: 0 30px 50px rgba(0, 0, 0, 0.4);
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.register-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: #7e0000;
+}
+
+.card-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.card-header h3 {
+    color: #fff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.card-subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+}
+
+.divider-small {
+    width: 60px;
+    height: 2px;
+    background: #7e0000;
+    margin: 1rem auto;
+    border-radius: 2px;
 }
 
 /* ---------------------- 
    FORM STYLES 
 ---------------------- */
-.auth-container {
-    position: relative;
-    z-index: 3;
-    padding: 4rem 1rem;
-    background: #0a0a0a;
-}
-
-.auth-card {
-    max-width: 500px;
-    margin: -100px auto 0;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 20px;
-    border: 1px solid rgba(126, 0, 0, 0.3);
-    box-shadow: 0 30px 50px rgba(0, 0, 0, 0.3);
-    padding: 3rem 2rem;
-}
-
 .martial-form {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
+.form-row {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.form-row .form-group {
+    flex: 1;
+    margin-bottom: 0;
+}
+
 .form-group {
-    position: relative;
     margin-bottom: 1.5rem;
-    width: 100%;
+}
+
+.form-label {
+    display: block;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.input-container {
+    position: relative;
 }
 
 .form-input {
-    width: 354.4px;
-    padding: 1.2rem 1.2rem 1.2rem 3.5rem;
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem;
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
+    border: 1px solid rgba(126, 0, 0, 0.3);
+    border-radius: 8px;
     color: #fff;
     font-size: 1rem;
     transition: all 0.3s ease;
@@ -103,35 +183,158 @@
 .form-input:focus {
     border-color: #7e0000;
     background: rgba(126, 0, 0, 0.1);
-    box-shadow: 0 4px 15px rgba(126, 0, 0, 0.2);
+    box-shadow: 0 0 0 3px rgba(126, 0, 0, 0.2);
+    outline: none;
 }
 
 .input-icon {
     position: absolute;
-    left: 1.2rem;
+    left: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     fill: rgba(255, 255, 255, 0.6);
-    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus ~ .input-icon {
+    fill: #7e0000;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.toggle-password svg {
+    width: 20px;
+    height: 20px;
+    fill: rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+}
+
+.toggle-password:hover svg {
+    fill: #7e0000;
+}
+
+select.form-input {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='rgba(255,255,255,0.6)'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 20px;
+    padding-right: 3rem;
 }
 
 /* ---------------------- 
-   DATE INPUT 
+   PASSWORD STRENGTH 
 ---------------------- */
-input[type="date"]::-webkit-calendar-picker-indicator {
-    filter: invert(1);
-    opacity: 0.7;
+.password-strength {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.strength-meter {
+    display: flex;
+    gap: 0.25rem;
+    flex: 1;
+}
+
+.strength-bar {
+    height: 4px;
+    background: #333;
+    border-radius: 2px;
+    flex: 1;
+    transition: all 0.3s ease;
+}
+
+.strength-text {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.strength-text span {
+    font-weight: 600;
+}
+
+/* ---------------------- 
+   TERMS & CONDITIONS 
+---------------------- */
+.terms-group {
+    margin: 1.5rem 0;
+}
+
+.terms-label {
+    display: flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    cursor: pointer;
+    position: relative;
+}
+
+.terms-label input {
+    position: absolute;
+    opacity: 0;
     cursor: pointer;
 }
 
-input[type="date"]::-webkit-datetime-edit-fields-wrapper {
-    color: rgba(255, 255, 255, 0.8);
+.checkmark {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(126, 0, 0, 0.5);
+    border-radius: 4px;
+    margin-right: 8px;
+    position: relative;
+    transition: all 0.3s ease;
 }
 
-input[type="date"]::-webkit-datetime-edit-text {
-    color: rgba(255, 255, 255, 0.6);
+.terms-label:hover .checkmark {
+    border-color: #7e0000;
+}
+
+.terms-label input:checked ~ .checkmark {
+    background: #7e0000;
+    border-color: #7e0000;
+}
+
+.checkmark::after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.terms-label input:checked ~ .checkmark::after {
+    display: block;
+}
+
+.terms-link {
+    color: #7e0000;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.terms-link:hover {
+    text-decoration: underline;
 }
 
 /* ---------------------- 
@@ -141,48 +344,63 @@ input[type="date"]::-webkit-datetime-edit-text {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-    padding: 1.2rem;
-    border-radius: 10px;
+    gap: 0.8rem;
+    padding: 1rem;
+    border-radius: 8px;
     font-size: 1.1rem;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
     transition: all 0.3s ease;
     border: none;
     text-decoration: none;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
 }
 
 .primary {
     background: #7e0000;
     color: #fff;
+    box-shadow: 0 4px 15px rgba(126, 0, 0, 0.3);
 }
 
 .primary:hover {
     background: #a30000;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(126, 0, 0, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(126, 0, 0, 0.4);
+}
+
+.btn-icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    transition: transform 0.3s ease;
+}
+
+.primary:hover .btn-icon {
+    transform: translateX(5px);
 }
 
 /* ---------------------- 
-   LINK STYLES 
+   LOGIN LINK 
 ---------------------- */
 .login-link {
     text-align: center;
     color: rgba(255, 255, 255, 0.7);
-    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    margin-top: 1rem;
 }
 
 .login-link a {
     color: #7e0000;
+    font-weight: 600;
     text-decoration: none;
-    font-weight: 500;
     transition: all 0.3s ease;
 }
 
 .login-link a:hover {
-    color: #a30000;
     text-decoration: underline;
 }
 
@@ -190,19 +408,27 @@ input[type="date"]::-webkit-datetime-edit-text {
    RESPONSIVE DESIGN 
 ---------------------- */
 @media (max-width: 768px) {
-    .auth-hero {
+    .register-hero {
         height: 50vh;
         min-height: 400px;
-        padding-bottom: 4rem;
     }
 
     .hero-title {
         font-size: 3.5rem;
     }
 
-    .auth-card {
-        margin-top: -80px;
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .register-card {
+        margin-top: -60px;
         padding: 2rem 1.5rem;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 1rem;
     }
 }
 
@@ -212,187 +438,10 @@ input[type="date"]::-webkit-datetime-edit-text {
     }
 
     .hero-subtitle {
-        font-size: 1.2rem;
-    }
-
-    .martial-btn {
         font-size: 1rem;
-        padding: 1rem;
     }
 
-    .form-input {
-        padding: 1rem 1rem 1rem 3rem;
-    }
-
-    .input-icon {
-        width: 18px;
-        height: 18px;
-        left: 1rem;
-    }
-}
-
-/* ---------------------- 
-   BOTÓN CON ICONO 
----------------------- */
-.btn-icon {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-
-/* ---------------------- 
-   MEJORAS VISUALES 
----------------------- */
-.auth-card {
-    background: linear-gradient(145deg,
-            rgba(30, 30, 30, 0.3) 0%,
-            rgba(126, 0, 0, 0.15) 100%);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-}
-
-.form-input {
-    border: 1px solid rgba(126, 0, 0, 0.3);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.form-input:hover {
-    border-color: rgba(126, 0, 0, 0.6);
-}
-
-/* ---------------------- 
-   ANIMACIÓN DE CARGA 
----------------------- */
-@keyframes inputFocus {
-    0% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-2px);
-    }
-
-    100% {
-        transform: translateY(0);
-    }
-}
-
-.form-input:focus {
-    animation: inputFocus 0.6s ease;
-}
-
-/* ---------------------- 
-   EFECTO NEÓN EN BOTÓN 
----------------------- */
-.primary {
-    position: relative;
-    overflow: hidden;
-}
-
-.primary::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg,
-            transparent 48%,
-            rgba(255, 255, 255, 0.1) 50%,
-            transparent 52%);
-    animation: shine 4s infinite linear;
-    opacity: 0.4;
-}
-
-@keyframes shine {
-    from {
-        transform: rotate(0deg) translateX(-50%);
-    }
-
-    to {
-        transform: rotate(360deg) translateX(50%);
-    }
-}
-
-/* ---------------------- 
-   EFECTO PULSO EN ICONOS 
----------------------- */
-.input-icon {
-    transition: all 0.3s ease;
-}
-
-.form-group:hover .input-icon {
-    transform: translateY(-50%) scale(1.1);
-    fill: #7e0000;
-}
-
-/* ---------------------- 
-   RESPONSIVE FINAL 
----------------------- */
-@media (max-width: 768px) {
-    .auth-hero {
-        height: 50vh;
-        min-height: 400px;
-        padding-bottom: 4rem;
-    }
-
-    .hero-title {
-        font-size: 3.5rem;
-    }
-
-    .auth-card {
-        margin-top: -80px;
-        padding: 2rem 1.5rem;
-    }
-
-    .form-input {
-        width: 100%;
-        padding: 1rem 1rem 1rem 3rem;
-    }
-
-    .input-icon {
-        left: 1rem;
-    }
-
-    .btn-icon {
-        width: 18px;
-        height: 18px;
-    }
-
-    .martial-btn {
-        font-size: 1rem;
-        padding: 1rem;
-    }
-
-    .form-group {
-        margin-bottom: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .btn-icon {
-        width: 18px;
-        height: 18px;
-    }
-
-    .martial-btn {
-        flex-direction: column;
-        gap: 8px;
-        font-size: 0.7em;
-    }
-
-    .martial-btn span {
-        order: 2;
-    }
-
-    .btn-icon {
-        order: 1;
-    }
-
-    .form-input {
-        width: 284.8px;
+    .register-card {
+        padding: 1.5rem;
     }
 }
