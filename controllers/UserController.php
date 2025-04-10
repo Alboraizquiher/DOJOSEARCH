@@ -59,10 +59,10 @@ class UserController
 
                 if ($is_admin == 1) {
                     echo 'Login success - Eres Administrador';
-                    header(header: 'Location: ../views/html/user.html');
-                } else {
+                    header(header: 'Location: ../views/html/userAdmin.html');
+                } elseif ($is_admin == 0) {
                     echo 'Login success - Eres Usuario Normal';
-                    header(header: 'Location: ../views/html/user.html');
+                    header(header: 'Location: ../views/html/userUser.html');
                     exit();
                 }
             } else {
@@ -83,6 +83,7 @@ class UserController
 
         // Capturar datos del formulario
         $name = trim($_POST['name']);
+        $username = trim($_POST['username']);
         $fecha_born = trim($_POST['fecha_born']);
         $email = trim($_POST['email']);
         $password = trim($_POST['password']);
@@ -94,7 +95,7 @@ class UserController
         echo "Contraseña (sin hash): $password <br>";
 
         // Verificar que no estén vacíos
-        if (empty($name) || empty($fecha_born) || empty($email) || empty($password)) {
+        if (empty($name) ||empty($username) || empty($fecha_born) || empty($email) || empty($password)) {
             die('Error: Todos los campos son obligatorios.');
         }
 
@@ -114,8 +115,8 @@ class UserController
         echo "Contraseña hasheada: $hashedPassword <br>";
 
         // Insertar usuario en la base de datos
-        $stmt = $this->conn->prepare("INSERT INTO users (name, fecha_born, email, password) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param('ssss', $name, $fecha_born, $email, $hashedPassword);
+        $stmt = $this->conn->prepare("INSERT INTO users (name,username, fecha_born, email, password) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param('sssss', $name, $username, $fecha_born, $email, $hashedPassword);
 
         if ($stmt->execute()) {
             echo 'Registro exitoso!';
