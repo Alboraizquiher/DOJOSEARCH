@@ -20,7 +20,7 @@ class UserController
 
     public function __construct()
     {
-        $servername = "10.118.2.73";
+        $servername = "10.118.4.144";
         $username = "Admin";
         $password = "admin";
         $dbname = "auth_db";

@@ -1,6 +1,6 @@
 <?php
 
-$server = "10.118.2.73";
+$server = "10.118.4.144";
 $user = "Admin";
 $password = "admin";
 $database = "auth_db";
