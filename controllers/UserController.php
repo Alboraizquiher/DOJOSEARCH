@@ -62,11 +62,11 @@ class UserController
                 echo 'Login success';
 
                 if ($is_admin == 1) {
-                    echo 'Login success - Eres Administrador';
-                    header('Location: ../views/html/user.html');
+                   
+                    header('Location: ../views/html/userAdmin.html');
                 } else {
                     echo 'Login success - Eres Usuario Normal';
-                    header('Location: ../views/html/user.html');
+                    header('Location: ../views/html/userUser.html');
                     exit();
                 }
             } else {
