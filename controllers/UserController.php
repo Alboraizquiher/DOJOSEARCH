@@ -76,8 +76,6 @@ class UserController
 
     public function register()
     {
-        exit();
-
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             http_response_code(405);
             die("Error 405: Método no permitido");
@@ -98,7 +96,7 @@ class UserController
         echo "Contraseña (sin hash): $password <br>";
 
         // Verificar que no estén vacíos
-        if (empty($name) || empty($fecha_born) || empty($email) || empty($password) || empty($username)) {
+        if (empty($name) ||empty($username) || empty($fecha_born) || empty($email) || empty($password)) {
             die('Error: Todos los campos son obligatorios.');
         }
 
