@@ -76,6 +76,8 @@ class UserController
 
     public function register()
     {
+        exit();
+
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             http_response_code(405);
             die("Error 405: Método no permitido");
@@ -86,15 +88,17 @@ class UserController
         $fecha_born = trim($_POST['fecha_born']);
         $email = trim($_POST['email']);
         $password = trim($_POST['password']);
+        $username = trim($_POST['username']);
 
         //  Imprimir datos para depuración
         echo "Nombre: $name <br>";
+        echo "Username: $username <br>";
         echo "Fecha de nacimiento: $fecha_born <br>";
         echo "Correo: $email <br>";
         echo "Contraseña (sin hash): $password <br>";
 
         // Verificar que no estén vacíos
-        if (empty($name) || empty($fecha_born) || empty($email) || empty($password)) {
+        if (empty($name) || empty($fecha_born) || empty($email) || empty($password) || empty($username)) {
             die('Error: Todos los campos son obligatorios.');
         }
 
@@ -114,8 +118,8 @@ class UserController
         echo "Contraseña hasheada: $hashedPassword <br>";
 
         // Insertar usuario en la base de datos
-        $stmt = $this->conn->prepare("INSERT INTO users (name, fecha_born, email, password) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param('ssss', $name, $fecha_born, $email, $hashedPassword);
+        $stmt = $this->conn->prepare("INSERT INTO users (name, username, fecha_born, email, password) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param('sssss', $name, $username, $fecha_born, $email, $hashedPassword);
 
         if ($stmt->execute()) {
             echo 'Registro exitoso!';
