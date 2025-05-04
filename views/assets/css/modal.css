@@ -1,0 +1,98 @@
+/* filepath: c:\xampp\htdocs\DOJOSEARCH\views\assets\css\modal.css */
+
+/* Estilo para el enlace de la barra de navegación */
+.nav-link {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-link:hover {
+    background-color: #007bff; /* Color de fondo al pasar el mouse */
+    color: #fff; /* Color del texto al pasar el mouse */
+}
+
+/* Fondo del modal */
+.modal-content {
+    background-color: #f9f9f9; /* Color de fondo claro */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra */
+    border: none; /* Sin borde */
+}
+
+/* Título del modal */
+.modal-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333; /* Color del texto */
+}
+
+/* Botón de cerrar */
+.btn-close {
+    background-color: transparent;
+    border: none;
+    font-size: 1.2rem;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.btn-close:hover {
+    color: #000; /* Cambia el color al pasar el mouse */
+}
+
+/* Cuerpo del modal */
+.modal-body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    color: #555;
+    padding: 20px;
+}
+
+/* Inputs del formulario */
+.modal-body .form-control {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.modal-body .form-control:focus {
+    border-color: #007bff; /* Color azul al enfocar */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Botones del modal */
+.modal-footer .btn {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.modal-footer .btn-secondary {
+    background-color: #ddd;
+    color: #333;
+    border: none;
+}
+
+.modal-footer .btn-secondary:hover {
+    background-color: #bbb;
+    color: #000;
+}
+
+.modal-footer .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+}
+
+.modal-footer .btn-primary:hover {
+    background-color: #0056b3;
+    color: #fff;
+}

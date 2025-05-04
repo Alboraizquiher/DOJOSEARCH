@@ -6,11 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil de Usuario | Nombre de tu Sitio</title>
     <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/user.css">
+    <link rel="stylesheet" href="../assets/css/profile.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="../assets/images/logoDS.png">
-
 </head>
 
 <body>
@@ -43,14 +41,14 @@
             <div class="profile-card">
                 <div class="profile-sidebar">
                     <div class="profile-userpic">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-responsive" alt="">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-responsive" alt="" name="image" id="image">
                     </div>
                     <div class="profile-usertitle">
                         <div class="profile-usertitle-name">
                             Nelle Maxwell
                         </div>
                         <div class="profile-usertitle-job">
-                            Entrenador Premium
+                            ADMINISTRADOR
                         </div>
                     </div>
                     <div class="profile-usermenu">
@@ -72,7 +70,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#account-social" data-toggle="tab">
-                                    <i class="icon-share"></i>Redes Sociales
+                                    <i class="icon-share"></i> Redes Sociales
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -93,11 +91,17 @@
                                     <div class="profile-avatar-container">
                                         <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Avatar"
                                         name="image" class="image">
-                                            class="profile-avatar">
+                                           
                                         <div class="avatar-actions">
-                                            <label class="btn btn-upload">
-                                                Cambiar foto
-                                                <input type="file" class="account-settings-fileinput">
+                                            <label class="btn btn-upload" style="color: white; margin-top: 10px; text-align:left;">
+                                               
+                                                <form action="../../controllers/UserController.php" method="POST" enctype="multipart/form-data">
+                                                    <label for="photo">Subir nueva foto de perfil:</label><br>
+                                                    <input type="file" name="photo" accept="image/*" required><br>
+                                                    <input type="submit" name="uploadPhoto" value="Subir Foto" class="btn btn-upload mt-2">
+                                                </form>
+                                                
+                                                
                                             </label>
                                             <button type="button" class="btn btn-reset">Restablecer</button>
                                         </div>
@@ -111,19 +115,19 @@
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label">Nombre de usuario</label>
                                 <div class="col-lg-9">
-                                    <input type="text" class="form-control" value="nmaxwell">
+                                    <input type="text" class="form-control" value="Username">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label">Nombre completo</label>
                                 <div class="col-lg-9">
-                                    <input type="text" class="form-control" value="Nelle Maxwell">
+                                    <input type="text" class="form-control" value="Name">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label">Correo electrónico</label>
                                 <div class="col-lg-9">
-                                    <input type="text" class="form-control" value="nmaxwell@mail.com">
+                                    <input type="text" class="form-control" value="example@mail.com">
                                     <div class="email-warning">
                                         Tu correo no está confirmado. Por favor revisa tu bandeja de entrada.
                                         <a href="#">Reenviar confirmación</a>

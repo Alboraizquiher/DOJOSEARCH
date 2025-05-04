@@ -9,9 +9,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user->login();
     } else if (isset($_POST['register'])) {
         $user->register();
+        
     } else if (isset($_GET['logout'])) {
         $user->logout();
+    } else if (isset($_POST['uploadPhoto'])) {
+        $user->uploadPhoto();
+        # code...
+    }else if (isset($_GET['showPhoto'])) {
+        $user->showPhoto();
     }
+    
 }
 
 class UserController
@@ -143,7 +150,64 @@ class UserController
             exit();
         }
     }
+    public function uploadPhoto()
+    {
+        if (!isset($_SESSION['email'])) {
+            die('Error: No has iniciado sesión.');
+        }
+    
+        if (!isset($_FILES['photo']) || $_FILES['photo']['error'] !== UPLOAD_ERR_OK) {
+            die('Error al subir la imagen.');
+        }
+    
+        $photoData = file_get_contents($_FILES['photo']['tmp_name']);
+        $email = $_SESSION['email'];  // usamos esto para identificar al usuario
+    
+        $stmt = $this->conn->prepare("UPDATE users SET photo = ? WHERE email = ?");
+        $stmt->bind_param('bs', $null, $email);
+    
+        $null = null;
+        $stmt->send_long_data(0, $photoData);
+    
+        if ($stmt->execute()) {
+            echo 'Foto actualizada con éxito.';
+            header('Location: ../views/html/userAdmin.html');
+            exit();
+        } else {
+            echo 'Error al actualizar la foto.';
+        }
+    
+        $stmt->close();
+    }
+    public function showPhoto()
+{
+    if (!isset($_SESSION['email'])) {
+        die('No autorizado.');
+    }
 
+    $email = $_SESSION['email'];
+    $stmt = $this->conn->prepare("SELECT photo FROM users WHERE email = ?");
+    $stmt->bind_param('s', $email);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($photo);
+        $stmt->fetch();
+
+        header("Content-Type: image/jpeg");
+        echo $photo;
+    }
+
+    $stmt->close();
+    exit();
+}
+
+
+
+
+
+   
     public function logout()
     {
         session_unset();
