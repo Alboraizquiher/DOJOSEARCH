@@ -1,24 +1,20 @@
 <?php
 session_start();
-require 'db_connection.php';
 
 $user = new UserController();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['login'])) {
         $user->login();
-    } else if (isset($_POST['register'])) {
+    } elseif (isset($_POST['register'])) {
         $user->register();
-        
-    } else if (isset($_GET['logout'])) {
-        $user->logout();
-    } else if (isset($_POST['uploadPhoto'])) {
+    } elseif (isset($_POST['uploadPhoto'])) {
         $user->uploadPhoto();
-        # code...
-    }else if (isset($_GET['showPhoto'])) {
+    } elseif (isset($_GET['logout'])) {
+        $user->logout();
+    } elseif (isset($_GET['showPhoto'])) {
         $user->showPhoto();
     }
-    
 }
 
 class UserController
@@ -31,16 +27,15 @@ class UserController
         $username = "Admin";
         $password = "admin";
         $dbname = "auth_db";
-        $port = 3306;
 
-        $this->conn = new mysqli($servername, $username, $password, $dbname, $port);
-
-        if ($this->conn->connect_error) {
-            die("Connection failed: " . $this->conn->connect_error);
-        } else {
-            echo 'Connection success';
+        try {
+            $this->conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            die("Error de conexión: " . $e->getMessage());
         }
     }
+
     public function login()
     {
         $email = $_POST['email'];
@@ -54,43 +49,33 @@ class UserController
             die('Error: Formato de email inválido.');
         }
 
-        $stmt = $this->conn->prepare("SELECT email, password, is_admin FROM users WHERE email = ?");
-        $stmt->bind_param("s", $email);
+        $stmt = $this->conn->prepare("SELECT email, password, is_admin FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $email);
         $stmt->execute();
-        $stmt->store_result();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($stmt->num_rows > 0) {
-            $stmt->bind_result($db_email, $db_password, $is_admin);
-            $stmt->fetch();
+        if ($user) {
+            if (password_verify($password, $user['password'])) {
+                $_SESSION['email'] = $user['email'];
+                $_SESSION['is_admin'] = $user['is_admin'];
 
-            if (password_verify($password, $db_password)) {
-                $_SESSION['email'] = $db_email;
-                $_SESSION['is_admin'] = $is_admin;
-                echo 'Login success';
-
-                if ($is_admin == 1) {
-                   
+                if ($user['is_admin'] == 1) {
                     header('Location: ../views/html/userAdmin.html');
                 } else {
-                    echo 'Login success - Eres Usuario Normal';
                     header('Location: ../views/html/userUser.html');
-                    exit();
                 }
+                exit();
             } else {
-                echo 'Login failed';
+                echo 'Error: Contraseña incorrecta.';
             }
-
-            $stmt->close();
+        } else {
+            echo 'Error: El usuario no existe.';
         }
     }
 
+
     public function register()
     {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            http_response_code(405);
-            die("Error 405: Método no permitido");
-        }
-
         $name = trim($_POST['name']);
         $fecha_born = trim($_POST['fecha_born']);
         $email = trim($_POST['email']);
@@ -105,114 +90,85 @@ class UserController
             die('Error: Formato de email inválido.');
         }
 
-        if (strlen($password) > 100) {
-            die('Error: La contraseña debe tener menos de 100 caracteres.');
+        if (strlen($password) > 100 || strlen($username) > 100) {
+            die('Error: Nombre de usuario o contraseña demasiado largos.');
         }
 
-        if (strlen($username) > 100) {
-            die('Error: El nombre de usuario debe tener menos de 100 caracteres.');
-        }
-
-        // Resto del código...
-        echo "Nombre: $name <br>";
-        echo "Username: $username <br>";
-        echo "Fecha de nacimiento: $fecha_born <br>";
-        echo "Correo: $email <br>";
-        echo "Contraseña (sin hash): $password <br>";
-
-        // Validación de email existente
-        $stmt = $this->conn->prepare("SELECT idusers FROM users WHERE email = ?");
-        $stmt->bind_param('s', $email);
+        // Verificar si ya existe el email
+        $stmt = $this->conn->prepare("SELECT idusers FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $email);
         $stmt->execute();
-        $stmt->store_result();
 
-        if ($stmt->num_rows > 0) {
+        if ($stmt->fetch()) {
             die('Error: Este correo ya está registrado.');
         }
-        $stmt->close();
 
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        echo "Contraseña hasheada: $hashedPassword <br>";
 
-        $stmt = $this->conn->prepare("INSERT INTO users (name, username, fecha_born, email, password) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param('sssss', $name, $username, $fecha_born, $email, $hashedPassword);
+        $stmt = $this->conn->prepare("INSERT INTO users (name, username, fecha_born, email, password) VALUES (:name, :username, :fecha_born, :email, :password)");
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':fecha_born', $fecha_born);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':password', $hashedPassword);
 
         if ($stmt->execute()) {
-            echo 'Registro exitoso!';
-            $stmt->close();
-            $this->conn->close();
             header('Location: ../views/html/login.html');
-            exit();
         } else {
-            $stmt->close();
-            $this->conn->close();
             header('Location: ../views/html/register.html');
-            exit();
         }
+        exit();
     }
+
     public function uploadPhoto()
     {
         if (!isset($_SESSION['email'])) {
             die('Error: No has iniciado sesión.');
         }
-    
+
         if (!isset($_FILES['photo']) || $_FILES['photo']['error'] !== UPLOAD_ERR_OK) {
             die('Error al subir la imagen.');
         }
-    
+
         $photoData = file_get_contents($_FILES['photo']['tmp_name']);
-        $email = $_SESSION['email'];  // usamos esto para identificar al usuario
-    
-        $stmt = $this->conn->prepare("UPDATE users SET photo = ? WHERE email = ?");
-        $stmt->bind_param('bs', $null, $email);
-    
-        $null = null;
-        $stmt->send_long_data(0, $photoData);
-    
+        $email = $_SESSION['email'];
+
+        $stmt = $this->conn->prepare("UPDATE users SET photo = :photo WHERE email = :email");
+        $stmt->bindParam(':photo', $photoData, PDO::PARAM_LOB);
+        $stmt->bindParam(':email', $email);
+
         if ($stmt->execute()) {
-            echo 'Foto actualizada con éxito.';
             header('Location: ../views/html/userAdmin.html');
             exit();
         } else {
             echo 'Error al actualizar la foto.';
         }
-    
-        $stmt->close();
     }
+
     public function showPhoto()
-{
-    if (!isset($_SESSION['email'])) {
-        die('No autorizado.');
+    {
+        if (!isset($_SESSION['email'])) {
+            die('No autorizado.');
+        }
+
+        $email = $_SESSION['email'];
+
+        $stmt = $this->conn->prepare("SELECT photo FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+
+        if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            header("Content-Type: image/jpeg");
+            echo $row['photo'];
+        }
+
+        exit();
     }
 
-    $email = $_SESSION['email'];
-    $stmt = $this->conn->prepare("SELECT photo FROM users WHERE email = ?");
-    $stmt->bind_param('s', $email);
-    $stmt->execute();
-    $stmt->store_result();
-
-    if ($stmt->num_rows > 0) {
-        $stmt->bind_result($photo);
-        $stmt->fetch();
-
-        header("Content-Type: image/jpeg");
-        echo $photo;
-    }
-
-    $stmt->close();
-    exit();
-}
-
-
-
-
-
-   
     public function logout()
     {
         session_unset();
         session_destroy();
-
         header('Location: /index.php');
         exit();
     }
