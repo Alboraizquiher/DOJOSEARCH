@@ -71,7 +71,7 @@ class UserController
                 if ($is_admin == 1) {
                    
                     header('Location: ../views/html/userAdmin.html');
-                } else if ($is_admin == 0) {
+                } else  {
                     echo 'Login success - Eres Usuario Normal';
                     header('Location: ../views/html/userUser.html');
                     exit();
