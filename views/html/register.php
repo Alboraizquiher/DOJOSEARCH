@@ -37,7 +37,7 @@ if (isset($_SESSION['success'])) {
 
         <nav class="nav-menu">
             <a href="../html/events.php">EVENTOS</a>
-            <a href="../html/login.php">PERFIL</a>
+            <a href="<?php echo isset($_SESSION['user']) ? ($_SESSION['user']['is_admin'] ? 'userAdmin.php' : 'userUser.php') : 'login.php'; ?>">PERFIL</a>
         </nav>
     </div>
 

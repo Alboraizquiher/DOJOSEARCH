@@ -33,7 +33,7 @@ $user = $_SESSION['user'];
 
         <nav class="nav-menu">
             <a href="/DojoSearch/views/html/events.php">EVENTOS</a>
-            <a href="/DojoSearch/views/html/userAdmin.php">PERFIL</a>
+            <a href="<?php echo isset($_SESSION['user']) ? ($_SESSION['user']['is_admin'] ? 'userAdmin.php' : 'userUser.php') : 'login.php'; ?>">PERFIL</a>
         </nav>
     </div>
 

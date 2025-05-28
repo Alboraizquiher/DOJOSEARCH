@@ -619,7 +619,7 @@ class UserController
 }
 
 try {
-    $db = new PDO("mysql:host=localhost;dbname=dojosearch", "root", "");
+    $db = new PDO("mysql:host=localhost;dbname=dojosearch", "root", "yogui10332027");
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->exec("SET CHARACTER SET utf8mb4");
 } catch (PDOException $e) {
