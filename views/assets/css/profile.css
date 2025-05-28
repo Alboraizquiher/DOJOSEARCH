@@ -8,34 +8,30 @@
 
 .profile-container {
     max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     padding: 0 20px;
 }
 
 .profile-card {
     display: flex;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(126, 0, 0, 0.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
+/* Profile Sidebar */
 .profile-sidebar {
-    width: 280px;
-    background: rgba(126, 0, 0, 0.1);
+    width: 300px;
+    background: rgba(126, 0, 0, 0.15);
     padding: 2rem;
-    border-right: 1px solid rgba(126, 0, 0, 0.2);
-}
-
-.profile-content {
-    flex: 1;
-    padding: 2rem;
+    border-right: 1px solid rgba(126, 0, 0, 0.3);
 }
 
 .profile-userpic {
-    text-align: center;
     margin-bottom: 1.5rem;
+    text-align: center;
 }
 
 .profile-userpic img {
@@ -47,6 +43,37 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
+.profile-sidebar form {
+    margin-bottom: 1.5rem;
+}
+
+.profile-sidebar form input[type="file"] {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    padding: 0.5rem;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.profile-sidebar form input[type="submit"] {
+    background: #7e0000;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.profile-sidebar form input[type="submit"]:hover {
+    background: #a30000;
+}
+
 .profile-usertitle {
     text-align: center;
     margin-bottom: 2rem;
@@ -56,20 +83,26 @@
     color: #fff;
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.8rem;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.profile-usertitle-email {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
     margin-bottom: 0.5rem;
 }
 
 .profile-usertitle-job {
     color: #7e0000;
-    font-size: 0.9rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-weight: bold;
 }
 
 .profile-usermenu {
-    margin-top: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .profile-usermenu .nav-item {
@@ -77,180 +110,97 @@
 }
 
 .profile-usermenu .nav-link {
-    color: rgba(255, 255, 255, 0.8);
-    padding: 0.8rem 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    padding: 0.5rem 1rem;
     border-radius: 5px;
-    display: flex;
-    align-items: center;
     transition: all 0.3s ease;
 }
 
-.profile-usermenu .nav-link i {
-    margin-right: 10px;
-    width: 20px;
-    text-align: center;
-}
-
-.profile-usermenu .nav-link:hover {
-    background: rgba(126, 0, 0, 0.2);
-    color: #fff;
-}
-
-.profile-usermenu .nav-link.active {
-    background: #7e0000;
-    color: #fff;
-}
-
-.profile-divider {
-    border: none;
-    height: 1px;
+.profile-usermenu .nav-link:hover,
+.profile-usermenu .nav-item.active .nav-link {
     background: rgba(126, 0, 0, 0.3);
-    margin: 1.5rem 0;
+    color: #fff;
+}
+
+/* Profile Content */
+.profile-content {
+    flex: 1;
+    padding: 2rem;
+}
+
+.tab-content {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.tab-pane {
+    padding: 1rem;
 }
 
 .form-group {
     margin-bottom: 1.5rem;
 }
 
-.form-label {
+.col-form-label {
     color: #fff;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-    display: block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
 }
 
 .form-control {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: #fff;
     border-radius: 5px;
-    padding: 0.75rem 1rem;
-    width: 100%;
+    padding: 0.5rem 1rem;
+    font-family: Arial, sans-serif;
+    font-size: 0.95rem;
     transition: all 0.3s ease;
 }
 
 .form-control:focus {
     border-color: #7e0000;
-    background: rgba(126, 0, 0, 0.1);
-    box-shadow: 0 0 0 0.2rem rgba(126, 0, 0, 0.2);
-    color: #fff;
+    background: rgba(126, 0, 0, 0.15);
+    box-shadow: 0 0 8px rgba(126, 0, 0, 0.3);
+    outline: none;
 }
 
-.profile-avatar-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.profile-avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #7e0000;
-    margin-bottom: 1rem;
-}
-
-.avatar-actions {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 0.5rem;
-}
-
-.btn-upload {
-    background: #7e0000;
-    color: #fff;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-upload:hover {
-    background: #a30000;
-}
-
-.btn-reset {
-    background: transparent;
-    color: rgba(255, 255, 255, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-reset:hover {
+.input-group-text {
     background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: #fff;
+    border-radius: 5px 0 0 5px;
 }
 
-.avatar-note {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.8rem;
-}
-
-.email-warning {
-    background: rgba(126, 0, 0, 0.2);
-    color: rgba(255, 255, 255, 0.9);
-    padding: 0.75rem 1rem;
-    border-radius: 5px;
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-}
-
-.email-warning a {
-    color: #fff;
-    text-decoration: underline;
-}
-
-.password-requirements {
-    background: rgba(255, 255, 255, 0.03);
-    padding: 1.5rem;
-    border-radius: 5px;
-    margin-top: 2rem;
-    border-left: 3px solid #7e0000;
-}
-
-.password-requirements h5 {
-    color: #fff;
-    margin-bottom: 1rem;
-    font-family: 'Bebas Neue', sans-serif;
-    letter-spacing: 1px;
-}
-
-.password-requirements ul {
-    padding-left: 1.5rem;
-    margin-bottom: 0;
-    color: rgba(255, 255, 255, 0.8);
-}
-
+/* Notification Switch */
 .notification-section-title {
     color: #fff;
     font-family: 'Bebas Neue', sans-serif;
-    letter-spacing: 1px;
-    margin: 2rem 0 1rem;
     font-size: 1.3rem;
-}
-
-.notification-section-title:first-child {
-    margin-top: 0;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
 }
 
 .notification-item {
     display: flex;
     align-items: center;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 1rem;
+}
+
+.notification-label {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    margin-left: 1rem;
 }
 
 .notification-switch {
     position: relative;
     display: inline-block;
-    width: 50px;
-    height: 24px;
-    margin-right: 15px;
+    width: 40px;
+    height: 20px;
 }
 
 .notification-switch input {
@@ -266,9 +216,9 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(255, 255, 255, 0.1);
-    transition: .4s;
-    border-radius: 24px;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 20px;
 }
 
 .slider:before {
@@ -276,10 +226,10 @@
     content: "";
     height: 16px;
     width: 16px;
-    left: 4px;
-    bottom: 4px;
-    background-color: rgba(255, 255, 255, 0.7);
-    transition: .4s;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: 0.4s;
     border-radius: 50%;
 }
 
@@ -288,56 +238,80 @@ input:checked+.slider {
 }
 
 input:checked+.slider:before {
-    transform: translateX(26px);
-    background-color: #fff;
+    transform: translateX(20px);
 }
 
-.notification-label {
-    color: rgba(255, 255, 255, 0.9);
-}
-
+/* Profile Actions */
 .profile-actions {
     display: flex;
     justify-content: flex-end;
     gap: 1rem;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
+}
+
+.btn-cancel,
+.btn-save {
+    padding: 0.5rem 1.5rem;
+    border-radius: 5px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .btn-cancel {
-    background: #7e0000;
-    color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 0.75rem 2rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    color: white !important;
-
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .btn-cancel:hover {
-    background: #a30000;
-    color: white !important;
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .btn-save {
     background: #7e0000;
     color: #fff;
     border: none;
-    padding: 0.75rem 2rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    color: white !important;
-
 }
 
 .btn-save:hover {
     background: #a30000;
-    transform: translateY(-2px);
-    color: white !important;
+}
 
-    box-shadow: 0 5px 15px rgba(126, 0, 0, 0.3);
+/* Delete Account Section */
+.delete-account-section {
+    margin-top: 2rem;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid rgba(126, 0, 0, 0.2);
+}
+
+.form-title.danger {
+    color: #7e0000;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+}
+
+.delete-account-section p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+/* Messages */
+.success-message {
+    background: rgba(126, 0, 0, 0.2);
+    color: rgba(255, 255, 255, 0.9);
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid #7e0000;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
 }
 
 /* Responsive */
@@ -350,6 +324,7 @@ input:checked+.slider:before {
         width: 100%;
         border-right: none;
         border-bottom: 1px solid rgba(126, 0, 0, 0.2);
+        padding: 1.5rem;
     }
 
     .profile-userpic img {
@@ -357,20 +332,8 @@ input:checked+.slider:before {
         height: 120px;
     }
 
-    .profile-usermenu {
-        display: flex;
-        overflow-x: auto;
-        padding-bottom: 1rem;
-    }
-
-    .profile-usermenu .nav {
-        flex-wrap: nowrap;
-    }
-
-    .profile-usermenu .nav-item {
-        margin-bottom: 0;
-        margin-right: 0.5rem;
-        white-space: nowrap;
+    .profile-content {
+        padding: 1.5rem;
     }
 }
 
@@ -379,16 +342,9 @@ input:checked+.slider:before {
         padding: 4rem 0;
     }
 
-    .form-group.row {
-        flex-direction: column;
-    }
-
-    .form-group.row .col-lg-3 {
-        margin-bottom: 0.5rem;
-    }
-
     .profile-actions {
         flex-direction: column;
+        gap: 0.5rem;
     }
 
     .btn-cancel,

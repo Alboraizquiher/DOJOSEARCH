@@ -1,3 +1,18 @@
+<?php
+ini_set('session.gc_maxlifetime', 86400);
+session_set_cookie_params([
+    'lifetime' => 86400,
+    'path' => '/',
+    'domain' => '',
+    'secure' => true,
+    'httponly' => true,
+    'samesite' => 'Lax'
+]);
+
+session_start();
+require_once '../../controllers/UserController.php';
+UserController::checkSession();
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -12,13 +27,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap"
         rel="stylesheet">
-    <link rel="icon" type="image/png" href="../assets/images/logoDS.png" />
+    <link rel="icon" type="image/png" href="../assets/images/logoDS.png">
 </head>
 
 <body>
     <div id="navbar">
         <div class="logo-container">
-            <a href="../html/index.html" class="logo-link">
+            <a href="../html/index.php" class="logo-link">
                 <img src="../assets/images/logoDS.png" alt="Logo DojoSearch" class="logo" />
                 <h2>DojoSearch</h2>
             </a>
@@ -28,8 +43,8 @@
         <label for="menu-toggle" class="menu-toggle-label">&#9776;</label>
 
         <nav class="nav-menu">
-            <a href="../html/events.html">EVENTOS</a>
-            <a href="../html/login.html">PERFIL</a>
+            <a href="../html/events.php">EVENTOS</a>
+            <a href="<?php echo isset($_SESSION['user']) ? ($_SESSION['user']['is_admin'] ? 'userAdmin.php' : 'userUser.php') : 'login.php'; ?>">PERFIL</a>
         </nav>
     </div>
 
@@ -518,8 +533,8 @@
                 <div class="footer-column">
                     <h4 class="footer-heading">Explora</h4>
                     <ul class="footer-links">
-                        <li><a href="../html/events.html">Eventos</a></li>
-                        <li><a href="../html/login.html">Mi Perfil</a></li>
+                        <li><a href="../html/events.php">Eventos</a></li>
+                        <li><a href="../html/login.php">Mi Perfil</a></li>
                         <li><a href="#">Galería</a></li>
                         <li><a href="#">Blog Marcial</a></li>
                         <li><a href="#">Tienda</a></li>
@@ -561,7 +576,7 @@
     <script>
         // Navbar scroll effect
         var prevScrollpos = window.pageYOffset;
-        window.onscroll = function () {
+        window.onscroll = function() {
             var currentScrollPos = window.pageYOffset;
             if (prevScrollpos > currentScrollPos) {
                 document.getElementById("navbar").style.top = "0";
@@ -573,13 +588,13 @@
 
         // Simple filter functionality for demo purposes
         document.querySelectorAll('.filter-select').forEach(select => {
-            select.addEventListener('change', function () {
+            select.addEventListener('change', function() {
                 // In a real implementation, this would filter the events
                 console.log(`Filter by ${this.id}: ${this.value}`);
             });
         });
 
-        document.querySelector('.filter-reset').addEventListener('click', function () {
+        document.querySelector('.filter-reset').addEventListener('click', function() {
             document.querySelectorAll('.filter-select').forEach(select => {
                 select.value = 'all';
             });
@@ -587,11 +602,11 @@
 
         // Event card hover effects
         document.querySelectorAll('.event-card').forEach(card => {
-            card.addEventListener('mouseenter', function () {
+            card.addEventListener('mouseenter', function() {
                 this.querySelector('.event-overlay').style.opacity = '1';
             });
 
-            card.addEventListener('mouseleave', function () {
+            card.addEventListener('mouseleave', function() {
                 this.querySelector('.event-overlay').style.opacity = '0';
             });
         });

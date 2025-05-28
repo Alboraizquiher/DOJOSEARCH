@@ -1,0 +1,375 @@
+<?php
+require_once '../../controllers/UserController.php';
+UserController::checkSession();
+
+$user = $_SESSION['user'];
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Administrador - DojoSearch</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/profile.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../assets/images/logoDS.png">
+</head>
+
+<body>
+    <div id="navbar">
+        <div class="logo-container">
+            <a href="/DojoSearch/views/html/index.php" class="logo-link">
+                <img src="../assets/images/logoDS.png" alt="Logo" class="logo" />
+                <h2>DojoSearch</h2>
+            </a>
+        </div>
+
+        <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+        <label for="menu-toggle" class="menu-toggle-label">&#9776;</label>
+
+        <nav class="nav-menu">
+            <a href="/DojoSearch/views/html/events.php">EVENTOS</a>
+            <a href="/DojoSearch/views/html/userAdmin.php">PERFIL</a>
+        </nav>
+    </div>
+
+    <!-- Profile Section -->
+    <section class="profile-section">
+        <div class="profile-container">
+            <div class="section-header">
+                <span class="section-subtitle">CONFIGURACIÓN DE</span>
+                <h2 class="section-title">MI PERFIL</h2>
+                <div class="divider-red"></div>
+            </div>
+
+            <!-- Mensajes de error o éxito -->
+            <?php if (isset($_SESSION['error'])): ?>
+                <div class="error"><?php echo htmlspecialchars($_SESSION['error']); ?></div>
+                <?php unset($_SESSION['error']); ?>
+            <?php endif; ?>
+            <?php if (isset($_SESSION['success'])): ?>
+                <div class="success-message"><?php echo htmlspecialchars($_SESSION['success']); ?></div>
+                <?php unset($_SESSION['success']); ?>
+            <?php endif; ?>
+
+            <div class="profile-card">
+                <div class="profile-sidebar">
+                    <div class="profile-userpic">
+                        <?php if (!empty($user['photo'])): ?>
+                            <img src="data:image/jpeg;base64,<?php echo base64_encode($user['photo']); ?>" class="img-responsive" alt="Foto de perfil">
+                        <?php else: ?>
+                            <img src="https://via.placeholder.com/150?text=Sin+Foto" class="img-responsive" alt="Foto de perfil">
+                        <?php endif; ?>
+
+                    </div>
+
+                    <div class="profile-usertitle">
+                        <div class="profile-usertitle-job">
+                            USUARIO
+                        </div>
+                    </div>
+
+                    <div class="profile-usermenu">
+                        <ul class="nav flex-column">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#account-general" data-toggle="tab">
+                                    Información General
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#account-password" data-toggle="tab">
+                                    Cambiar Contraseña
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#account-info" data-toggle="tab">
+                                    Información Personal
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#account-social" data-toggle="tab">
+                                    Redes Sociales
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#account-notifications" data-toggle="tab">
+                                    Notificaciones
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="profile-content">
+                    <div class="tab-content">
+                        <!-- General Tab -->
+                        <div class="tab-pane active" id="account-general">
+                            <form action="/DojoSearch/controllers/UserController.php" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="action" value="updateUser">
+                                <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
+
+                                <div class="form-group">
+                                    <label for="name" class="form-label">Nombre:</label>
+                                    <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" class="form-control" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="username" class="form-label">Usuario:</label>
+                                    <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" class="form-control" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="fecha_born" class="form-label">Fecha de Nacimiento:</label>
+                                    <input type="date" id="fecha_born" name="fecha_born" value="<?php echo htmlspecialchars($user['fecha_born']); ?>" class="form-control" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Email:</label>
+                                    <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" class="form-control" required>
+                                </div>
+
+                                <div class="form-group profile-avatar-container">
+                                    <label class="form-label">Foto de Perfil:</label>
+                                    <small class="avatar-note">Solo los administradores pueden cambiar la foto de perfil.</small>
+                                </div>
+
+                                <div class="profile-actions">
+                                    <button type="submit" class="btn-save">Guardar Cambios</button>
+                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/html/<?php echo $user['is_admin'] ? 'userAdmin.php' : 'userUser.php'; ?>'">Cancelar</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Password Tab -->
+                        <div class="tab-pane" id="account-password">
+                            <form action="/DojoSearch/controllers/UserController.php" method="POST">
+                                <input type="hidden" name="action" value="updatePassword">
+                                <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label">Nueva contraseña</label>
+                                    <div class="col-lg-9">
+                                        <input type="password" class="form-control" name="password" placeholder="Dejar en blanco para no cambiar">
+                                    </div>
+                                </div>
+                                <div class="profile-actions">
+                                    <button type="button" class="btn btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
+                                    <button type="submit" class="btn btn-save">Guardar cambios</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Personal Info Tab -->
+                        <div class="tab-pane" id="account-info">
+                            <form action="/DojoSearch/controllers/UserController.php" method="POST">
+                                <input type="hidden" name="action" value="updateInfo">
+                                <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label">Biografía</label>
+                                    <div class="col-lg-9">
+                                        <textarea class="form-control" name="bio" rows="5"><?php echo htmlspecialchars($user['bio'] ?? ''); ?></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label">Fecha de nacimiento</label>
+                                    <div class="col-lg-9">
+                                        <input type="date" class="form-control" name="fecha_born" value="<?php echo htmlspecialchars($user['fecha_born'] ?? ''); ?>">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label">Teléfono</label>
+                                    <div class="col-lg-9">
+                                        <input type="tel" class="form-control" name="phone" value="<?php echo htmlspecialchars($user['phone'] ?? ''); ?>">
+                                    </div>
+                                </div>
+                                <div class="profile-actions">
+                                    <button type="button" class="btn btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
+                                    <button type="submit" class="btn btn-save">Guardar cambios</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Social Tab -->
+                        <div class="tab-pane" id="account-social">
+                            <form action="/DojoSearch/controllers/UserController.php" method="POST">
+                                <input type="hidden" name="action" value="updateSocial">
+                                <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label">Twitter</label>
+                                    <div class="col-lg-9">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">@</span>
+                                            </div>
+                                            <input type="text" class="form-control" name="twitter" value="<?php echo htmlspecialchars($user['twitter'] ?? ''); ?>">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label">Instagram</label>
+                                    <div class="col-lg-9">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">@</span>
+                                            </div>
+                                            <input type="text" class="form-control" name="instagram" value="<?php echo htmlspecialchars($user['instagram'] ?? ''); ?>">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label">Facebook</label>
+                                    <div class="col-lg-9">
+                                        <input type="text" class="form-control" name="facebook" value="<?php echo htmlspecialchars($user['facebook'] ?? ''); ?>">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label">YouTube</label>
+                                    <div class="col-lg-9">
+                                        <input type="text" class="form-control" name="youtube" value="<?php echo htmlspecialchars($user['youtube'] ?? ''); ?>">
+                                    </div>
+                                </div>
+                                <div class="profile-actions">
+                                    <button type="button" class="btn btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
+                                    <button type="submit" class="btn btn-save">Guardar cambios</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Notifications Tab -->
+                        <div class="tab-pane" id="account-notifications">
+                            <form action="/DojoSearch/controllers/UserController.php" method="POST">
+                                <input type="hidden" name="action" value="updateNotifications">
+                                <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
+                                <h5 class="notification-section-title">Notificaciones por correo</h5>
+                                <div class="form-group">
+                                    <div class="notification-item">
+                                        <label class="notification-switch">
+                                            <input type="checkbox" name="email_messages" <?php echo (isset($user['email_messages']) && $user['email_messages']) ? 'checked' : ''; ?>>
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <span class="notification-label">Nuevos mensajes privados</span>
+                                    </div>
+                                    <div class="notification-item">
+                                        <label class="notification-switch">
+                                            <input type="checkbox" name="email_reminders" <?php echo (isset($user['email_reminders']) && $user['email_reminders']) ? 'checked' : ''; ?>>
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <span class="notification-label">Recordatorios de clases</span>
+                                    </div>
+                                    <div class="notification-item">
+                                        <label class="notification-switch">
+                                            <input type="checkbox" name="email_promotions" <?php echo (isset($user['email_promotions']) && $user['email_promotions']) ? 'checked' : ''; ?>>
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <span class="notification-label">Promociones especiales</span>
+                                    </div>
+                                </div>
+                                <div class="profile-actions">
+                                    <button type="button" class="btn btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
+                                    <button type="submit" class="btn btn-save">Guardar cambios</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-actions">
+                <button type="button" class="btn btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
+                <button type="button" class="btn btn-save" onclick="alert('Funcionalidad de guardar no implementada aún');">Guardar cambios</button>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.profile-usermenu a').on('click', function(e) {
+                e.preventDefault();
+                $('.profile-usermenu a').removeClass('active');
+                $(this).addClass('active');
+                $('.tab-pane').removeClass('active');
+                $($(this).attr('href')).addClass('active');
+            });
+        });
+    </script>
+
+    <footer class="martial-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <div class="footer-brand">
+                        <img src="../assets/images/logoDS.png" alt="DojoSearch Logo" class="footer-logo">
+                        <h3 class="footer-title">DojoSearch</h3>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <img src="../assets/images/social-media/instagram.png" alt="Instagram">
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <img src="../assets/images/social-media/facebook.png" alt="Facebook">
+                        </a>
+                        <a href="#" class="social-icon" aria-label="YouTube">
+                            <img src="../assets/images/social-media/youtube.png" alt="YouTube">
+                        </a>
+                        <a href="#" class="social-icon" aria-label="LinkedIn">
+                            <img src="../assets/images/social-media/linkedin.png" alt="LinkedIn">
+                        </a>
+                    </div>
+                    <div class="newsletter">
+                        <h4>Recibe novedades</h4>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Tu mejor email" required>
+                            <button type="submit">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h4 class="footer-heading">Explora</h4>
+                    <ul class="footer-links">
+                        <li><a href="../html/events.php">Eventos</a></li>
+                        <li><a href="../html/login.php">Mi Perfil</a></li>
+                        <li><a href="#">Galería</a></li>
+                        <li><a href="#">Blog Marcial</a></li>
+                        <li><a href="#">Tienda</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4 class="footer-heading">Contacto</h4>
+                    <ul class="contact-info">
+                        <li>
+                            <img src="../assets/images/icons/pin.png" alt="Ubicación">
+                            <span>500 Terry Francine St<br>San Francisco, CA 94158</span>
+                        </li>
+                        <li>
+                            <img src="../assets/images/icons/phone.png" alt="Teléfono">
+                            <span>123-456-7890</span>
+                        </li>
+                        <li>
+                            <img src="../assets/images/icons/email.png" alt="Email">
+                            <span>info@dojosearch.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                <div class="legal-links">
+                    <a href="#">Accesibilidad</a>
+                    <a href="#">Términos y condiciones</a>
+                    <a href="#">Política de privacidad</a>
+                </div>
+                <p class="copyright">&copy; 2023 DojoSearch. Todos los derechos reservados</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

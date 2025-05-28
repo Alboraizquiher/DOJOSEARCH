@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -13,7 +16,7 @@
 <body>
   <div id="navbar">
     <div class="logo-container">
-      <a href="../html/index.html" class="logo-link">
+      <a href="../html/index.php" class="logo-link">
         <img src="../assets/images/logoDS.png" alt="Logo" class="logo" />
         <h2>DojoSearch</h2>
       </a>
@@ -23,8 +26,8 @@
     <label for="menu-toggle" class="menu-toggle-label">&#9776;</label>
 
     <nav class="nav-menu">
-      <a href="../html/events.html">EVENTOS</a>
-      <a href="../html/login.html">PERFIL</a>
+      <a href="../html/events.php">EVENTOS</a>
+      <a href="<?php echo isset($_SESSION['user']) ? ($_SESSION['user']['is_admin'] ? 'userAdmin.php' : 'userUser.php') : 'login.php'; ?>">PERFIL</a>
     </nav>
   </div>
 
@@ -41,7 +44,7 @@
         <h1 class="hero-title">DojoSearch</h1>
         <div class="hero-divider"></div>
         <p class="hero-tagline">La plataforma líder en eventos de artes marciales</p>
-        <a href="../html/events.html" class="hero-cta">
+        <a href="../html/events.php" class="hero-cta">
           Descubre tu próximo evento
           <span class="cta-arrow">→</span>
         </a>
@@ -88,8 +91,7 @@
                 <img src="../assets/images/icons/certificate.png" alt="Icono certificación">
               </div>
               <h3>Certificaciones internacionales</h3>
-              <p>Todos nuestros instructores cuentan con certificaciones avaladas por las principales federaciones
-                mundiales.</p>
+              <p>Todos nuestros instructores cuentan con certificaciones avaladas por las principales federaciones mundiales.</p>
             </div>
 
             <div class="about-item">
@@ -133,8 +135,7 @@
             <h3 class="trainer-name">Jake Silva</h3>
             <p class="trainer-title">Instructor Principal</p>
             <div class="trainer-divider"></div>
-            <p class="trainer-bio">7º Dan de Karate especializado en katas tradicionales y defensa personal moderna.
-              Campeón mundial WKF 2015-2018.</p>
+            <p class="trainer-bio">7º Dan de Karate especializado en katas tradicionales y defensa personal moderna. Campeón mundial WKF 2015-2018.</p>
             <div class="trainer-social">
               <a href="#" class="social-icon" aria-label="Perfil de Instagram">
                 <img src="../assets/images/social-media/instagram.png" alt="Instagram">
@@ -155,8 +156,7 @@
             <h3 class="trainer-name">Terri Garner</h3>
             <p class="trainer-title">Entrenadora de Elite</p>
             <div class="trainer-divider"></div>
-            <p class="trainer-bio">Pionera en MMA femenino con 12 victorias profesionales. Especialista en integración
-              de técnicas múltiples.</p>
+            <p class="trainer-bio">Pionera en MMA femenino con 12 victorias profesionales. Especialista en integración de técnicas múltiples.</p>
             <div class="trainer-social">
               <a href="#" class="social-icon" aria-label="Perfil de Instagram">
                 <img src="../assets/images/social-media/instagram.png" alt="Instagram">
@@ -320,8 +320,7 @@
               <img src="../assets/images/icons/star.png" alt="Icono estrella">
               <div>
                 <p class="info-label">Instalaciones:</p>
-                <p id="location-facilities">• 3 Dojos profesionales<br>• Sala de pesas<br>• Zona de recuperación<br>•
-                  Tienda oficial</p>
+                <p id="location-facilities">• 3 Dojos profesionales<br>• Sala de pesas<br>• Zona de recuperación<br>• Tienda oficial</p>
               </div>
             </div>
             <a href="#" class="directions-btn" id="directions-link">
@@ -337,9 +336,24 @@
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
     var locations = {
-      "Barcelona": { coords: [41.3874, 2.1686], schedule: "Lun-Vie: 6:00 - 22:00<br>Sab-Dom: 8:00 - 20:00", facilities: "• 3 Dojos profesionales<br>• Sala de pesas<br>• Zona de recuperación<br>• Tienda oficial", directions: "https://maps.google.com/?q=41.3874,2.1686" },
-      "Madrid": { coords: [40.4168, -3.7038], schedule: "Lun-Vie: 7:00 - 23:00<br>Sab-Dom: 9:00 - 21:00", facilities: "• 2 Dojos profesionales<br>• Sala de musculación<br>• Spa y sauna", directions: "https://maps.google.com/?q=40.4168,-3.7038" },
-      "París": { coords: [48.8566, 2.3522], schedule: "Lun-Vie: 5:30 - 22:30<br>Sab-Dom: 7:00 - 20:00", facilities: "• 4 Dojos de alta competición<br>• Gimnasio equipado<br>• Tienda de artes marciales", directions: "https://maps.google.com/?q=48.8566,2.3522" }
+      "Barcelona": {
+        coords: [41.3874, 2.1686],
+        schedule: "Lun-Vie: 6:00 - 22:00<br>Sab-Dom: 8:00 - 20:00",
+        facilities: "• 3 Dojos profesionales<br>• Sala de pesas<br>• Zona de recuperación<br>• Tienda oficial",
+        directions: "https://maps.google.com/?q=41.3874,2.1686"
+      },
+      "Madrid": {
+        coords: [40.4168, -3.7038],
+        schedule: "Lun-Vie: 7:00 - 23:00<br>Sab-Dom: 9:00 - 21:00",
+        facilities: "• 2 Dojos profesionales<br>• Sala de musculación<br>• Spa y sauna",
+        directions: "https://maps.google.com/?q=40.4168,-3.7038"
+      },
+      "París": {
+        coords: [48.8566, 2.3522],
+        schedule: "Lun-Vie: 5:30 - 22:30<br>Sab-Dom: 7:00 - 20:00",
+        facilities: "• 4 Dojos de alta competición<br>• Gimnasio equipado<br>• Tienda de artes marciales",
+        directions: "https://maps.google.com/?q=48.8566,2.3522"
+      }
     };
 
     var map = L.map("map").setView(locations["Barcelona"].coords, 13);
@@ -350,7 +364,7 @@
     var marker = L.marker(locations["Barcelona"].coords).addTo(map).bindPopup("Barcelona, España").openPopup();
 
     document.querySelectorAll(".location-btn").forEach(button => {
-      button.addEventListener("click", function () {
+      button.addEventListener("click", function() {
         document.querySelectorAll(".location-btn").forEach(btn => btn.classList.remove("active"));
         this.classList.add("active");
 
@@ -402,8 +416,8 @@
         <div class="footer-column">
           <h4 class="footer-heading">Explora</h4>
           <ul class="footer-links">
-            <li><a href="../html/events.html">Eventos</a></li>
-            <li><a href="../html/login.html">Mi Perfil</a></li>
+            <li><a href="../html/events.php">Eventos</a></li>
+            <li><a href="../html/login.php">Mi Perfil</a></li>
             <li><a href="#">Galería</a></li>
             <li><a href="#">Blog Marcial</a></li>
             <li><a href="#">Tienda</a></li>
@@ -444,7 +458,7 @@
 
   <script>
     var prevScrollpos = window.pageYOffset;
-    window.onscroll = function () {
+    window.onscroll = function() {
       var currentScrollPos = window.pageYOffset;
       if (prevScrollpos > currentScrollPos) {
         document.getElementById("navbar").style.top = "0";

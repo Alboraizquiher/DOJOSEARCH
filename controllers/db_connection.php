@@ -1,11 +1,10 @@
 <?php
 
-$server = "10.118.4.144";
-$user = "Admin";
-$password = "admin";
-$database = "auth_db";
-$port = "3306";
-
+$server = "localhost";
+$user = "root";
+$password = "";
+$database = "dojosearch";
+$port = 3306;
 $connection = new mysqli($server, $user, $password, $database, $port);
 
 if ($connection->connect_error) {
