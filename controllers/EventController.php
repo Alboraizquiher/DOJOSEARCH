@@ -25,18 +25,69 @@ class EventController
 {
     public $conn;
 
+    public function __construct(){
+        global $conn; // Asegúrate de que $conn esté definido en db_connection.php
+        $this->conn = $conn;
+    }
+    // Métodos para manejar eventos
+    // Crear, actualizar, eliminar y obtener eventos
+
+    // Crear un evento
     public function createEvent()
     {
+         $name = $_POST['name'] ?? '';
+        $description = $_POST['description'] ?? '';
+        $date = $_POST['date'] ?? '';
+        $location = $_POST['location'] ?? '';
 
+        $sql = "INSERT INTO events (name, description, date, location) VALUES (?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("ssss", $name, $description, $date, $location);
+
+        if ($stmt->execute()) {
+            echo json_encode(['success' => true, 'message' => 'Evento creado correctamente']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Error al crear el evento']);
+        }
     }
+
+    // Actualizar un evento
     public function updateEvent()
     {
+        $id = $_POST['id'] ?? '';
+        $name = $_POST['name'] ?? '';
+        $description = $_POST['description'] ?? '';
+        $date = $_POST['date'] ?? '';
+        $location = $_POST['location'] ?? '';
 
+        $sql = "UPDATE events SET name = ?, description = ?, date = ?, location = ? WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("ssssi", $name, $description, $date, $location, $id);
+
+        if ($stmt->execute()) {
+            echo json_encode(['success' => true, 'message' => 'Evento actualizado correctamente']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Error al actualizar el evento']);
+        }
     }
+
+    // Eliminar un evento
     public function deleteEvent()
     {
+         $id = $_POST['id'] ?? '';
 
+        $sql = "DELETE FROM events WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+
+        if ($stmt->execute()) {
+            echo json_encode(['success' => true, 'message' => 'Evento eliminado correctamente']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Error al eliminar el evento']);
+        }
     }
+
+    // Obtener eventos
     public function getEvents()
     {
         $sql = "SELECT * FROM events";
@@ -52,6 +103,8 @@ class EventController
             echo json_encode(array());
         }
     }
+
+    // Obtener un evento por ID
     public function getEventById()
     {
         $eventId = $_POST['eventId'];
