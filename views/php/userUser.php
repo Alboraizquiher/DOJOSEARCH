@@ -22,7 +22,7 @@ $user = $_SESSION['user'];
 <body>
     <div id="navbar">
         <div class="logo-container">
-            <a href="/DojoSearch/views/html/index.php" class="logo-link">
+            <a href="/DojoSearch/views/php/index.php" class="logo-link">
                 <img src="../assets/images/logoDS.png" alt="Logo" class="logo" />
                 <h2>DojoSearch</h2>
             </a>
@@ -32,7 +32,7 @@ $user = $_SESSION['user'];
         <label for="menu-toggle" class="menu-toggle-label">&#9776;</label>
 
         <nav class="nav-menu">
-            <a href="../html/events.php">EVENTOS</a>
+            <a href="../php/events.php">EVENTOS</a>
             <?php if (!empty($_SESSION['user']) && is_array($_SESSION['user'])): ?>
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -40,12 +40,12 @@ $user = $_SESSION['user'];
                         PERFIL
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
-                        <a class="dropdown-item" href="/DojoSearch/views/html/<?php echo $_SESSION['user']['is_admin'] ? 'userAdmin.php' : 'userUser.php'; ?>">Configurar Perfil</a>
+                        <a class="dropdown-item" href="/DojoSearch/views/php/<?php echo $_SESSION['user']['is_admin'] ? 'userAdmin.php' : 'userUser.php'; ?>">Configurar Perfil</a>
                         <a class="dropdown-item" href="/DojoSearch/controllers/UserController.php?action=logout">Cerrar Sesión</a>
                     </div>
                 </div>
             <?php else: ?>
-                <a href="/DojoSearch/views/html/login.php" class="nav-link">PERFIL</a>
+                <a href="/DojoSearch/views/php/login.php" class="nav-link">PERFIL</a>
             <?php endif; ?>
         </nav>
     </div>
@@ -156,7 +156,7 @@ $user = $_SESSION['user'];
 
                                 <div class="profile-actions">
                                     <button type="submit" class="btn-save">Guardar Cambios</button>
-                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/html/<?php echo $user['is_admin'] ? 'userAdmin.php' : 'userUser.php'; ?>'">Cancelar</button>
+                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/php/<?php echo $user['is_admin'] ? 'userAdmin.php' : 'userUser.php'; ?>'">Cancelar</button>
                                 </div>
                             </form>
                         </div>
@@ -173,7 +173,7 @@ $user = $_SESSION['user'];
                                     </div>
                                 </div>
                                 <div class="profile-actions">
-                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
+                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/php/userAdmin.php'">Cancelar</button>
                                     <button type="submit" class="btn-save">Guardar cambios</button>
                                 </div>
                             </form>
@@ -203,7 +203,7 @@ $user = $_SESSION['user'];
                                     </div>
                                 </div>
                                 <div class="profile-actions">
-                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
+                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/php/userAdmin.php'">Cancelar</button>
                                     <button type="submit" class="btn-save">Guardar cambios</button>
                                 </div>
                             </form>
@@ -249,7 +249,7 @@ $user = $_SESSION['user'];
                                     </div>
                                 </div>
                                 <div class="profile-actions">
-                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
+                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/php/userAdmin.php'">Cancelar</button>
                                     <button type="submit" class="btn-save">Guardar cambios</button>
                                 </div>
                             </form>
@@ -285,7 +285,7 @@ $user = $_SESSION['user'];
                                     </div>
                                 </div>
                                 <div class="profile-actions">
-                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
+                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/php/userAdmin.php'">Cancelar</button>
                                     <button type="submit" class="btn-save">Guardar cambios</button>
                                 </div>
                             </form>
@@ -304,7 +304,7 @@ $user = $_SESSION['user'];
                                     </label>
                                 </div>
                                 <div class="profile-actions">
-                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userUser.php'">Cancelar</button>
+                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/php/userUser.php'">Cancelar</button>
                                     <button type="submit" class="btn btn-danger">Borrar Cuenta</button>
                                 </div>
                             </form>
@@ -364,8 +364,8 @@ $user = $_SESSION['user'];
                 <div class="footer-column">
                     <h4 class="footer-heading">Explora</h4>
                     <ul class="footer-links">
-                        <li><a href="../html/events.php">Eventos</a></li>
-                        <li><a href="../html/login.php">Mi Perfil</a></li>
+                        <li><a href="../php/events.php">Eventos</a></li>
+                        <li><a href="../php/login.php">Mi Perfil</a></li>
                         <li><a href="#">Galería</a></li>
                         <li><a href="#">Blog Marcial</a></li>
                         <li><a href="#">Tienda</a></li>

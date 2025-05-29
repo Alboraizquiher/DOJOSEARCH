@@ -27,7 +27,7 @@ if (isset($_SESSION['success'])) {
 <body>
     <div id="navbar">
         <div class="logo-container">
-            <a href="../html/index.php" class="logo-link">
+            <a href="../php/index.php" class="logo-link">
                 <img src="../assets/images/logoDS.png" alt="Logo" class="logo" />
                 <h2>DojoSearch</h2>
             </a>
@@ -37,7 +37,7 @@ if (isset($_SESSION['success'])) {
         <label for="menu-toggle" class="menu-toggle-label">&#9776;</label>
 
         <nav class="nav-menu">
-            <a href="../html/events.php">EVENTOS</a>
+            <a href="../php/events.php">EVENTOS</a>
             <?php if (!empty($_SESSION['user']) && is_array($_SESSION['user'])): ?>
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -45,12 +45,12 @@ if (isset($_SESSION['success'])) {
                         PERFIL
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
-                        <a class="dropdown-item" href="/DojoSearch/views/html/<?php echo $_SESSION['user']['is_admin'] ? 'userAdmin.php' : 'userUser.php'; ?>">Configurar Perfil</a>
+                        <a class="dropdown-item" href="/DojoSearch/views/php/<?php echo $_SESSION['user']['is_admin'] ? 'userAdmin.php' : 'userUser.php'; ?>">Configurar Perfil</a>
                         <a class="dropdown-item" href="/DojoSearch/controllers/UserController.php?action=logout">Cerrar Sesión</a>
                     </div>
                 </div>
             <?php else: ?>
-                <a href="/DojoSearch/views/html/login.php" class="nav-link">PERFIL</a>
+                <a href="/DojoSearch/views/php/login.php" class="nav-link">PERFIL</a>
             <?php endif; ?>
         </nav>
     </div>
@@ -171,7 +171,7 @@ if (isset($_SESSION['success'])) {
                 </button>
 
                 <div class="login-link">
-                    ¿Ya tienes cuenta? <a href="../html/login.php">Accede aquí</a>
+                    ¿Ya tienes cuenta? <a href="../php/login.php">Accede aquí</a>
                 </div>
             </form>
         </div>
@@ -211,8 +211,8 @@ if (isset($_SESSION['success'])) {
                 <div class="footer-column">
                     <h4 class="footer-heading">Explora</h4>
                     <ul class="footer-links">
-                        <li><a href="../html/events.php">Eventos</a></li>
-                        <li><a href="../html/login.php">Mi Perfil</a></li>
+                        <li><a href="../php/events.php">Eventos</a></li>
+                        <li><a href="../php/login.php">Mi Perfil</a></li>
                         <li><a href="#">Galería</a></li>
                         <li><a href="#">Blog Marcial</a></li>
                         <li><a href="#">Tienda</a></li>

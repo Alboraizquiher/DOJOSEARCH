@@ -23,7 +23,7 @@ if (isset($_SESSION['user'])) {
 <body>
     <div id="navbar">
         <div class="logo-container">
-            <a href="../html/index.php" class="logo-link">
+            <a href="../php/index.php" class="logo-link">
                 <img src="../assets/images/logoDS.png" alt="Logo" class="logo" />
                 <h2>DojoSearch</h2>
             </a>
@@ -33,7 +33,7 @@ if (isset($_SESSION['user'])) {
         <label for="menu-toggle" class="menu-toggle-label">&#9776;</label>
 
         <nav class="nav-menu">
-            <a href="../html/events.php">EVENTOS</a>
+            <a href="../php/events.php">EVENTOS</a>
             <a href="<?php echo isset($_SESSION['user']) ? ($_SESSION['user']['is_admin'] ? 'userAdmin.php' : 'userUser.php') : 'login.php'; ?>">PERFIL</a>
         </nav>
     </div>
@@ -131,7 +131,7 @@ if (isset($_SESSION['user'])) {
             </div>
 
             <div class="register-link">
-                ¿No tienes cuenta? <a href="../html/register.php">Únete al Dojo</a>
+                ¿No tienes cuenta? <a href="../php/register.php">Únete al Dojo</a>
             </div>
             </form>
         </div>
@@ -172,8 +172,8 @@ if (isset($_SESSION['user'])) {
                 <div class="footer-column">
                     <h4 class="footer-heading">Explora</h4>
                     <ul class="footer-links">
-                        <li><a href="../html/events.php">Eventos</a></li>
-                        <li><a href="../html/login.php">Mi Perfil</a></li>
+                        <li><a href="../php/events.php">Eventos</a></li>
+                        <li><a href="../php/login.php">Mi Perfil</a></li>
                         <li><a href="#">Galería</a></li>
                         <li><a href="#">Blog Marcial</a></li>
                         <li><a href="#">Tienda</a></li>
