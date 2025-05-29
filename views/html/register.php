@@ -18,6 +18,7 @@ if (isset($_SESSION['success'])) {
     <title>DojoSearch - Unirse al Dojo</title>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/register.css">
     <link rel="icon" type="image/png" href="../assets/images/logoDS.png">
@@ -37,7 +38,20 @@ if (isset($_SESSION['success'])) {
 
         <nav class="nav-menu">
             <a href="../html/events.php">EVENTOS</a>
-            <a href="<?php echo isset($_SESSION['user']) ? ($_SESSION['user']['is_admin'] ? 'userAdmin.php' : 'userUser.php') : 'login.php'; ?>">PERFIL</a>
+            <?php if (!empty($_SESSION['user']) && is_array($_SESSION['user'])): ?>
+                <div class="dropdown">
+                    <a class="dropdown-toggle" href="#" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="<?php echo !empty($_SESSION['user']['photo']) ? 'data:image/jpeg;base64,' . base64_encode($_SESSION['user']['photo']) : 'https://via.placeholder.com/30?text=Sin+Foto'; ?>" alt="Foto de perfil" class="profile-pic-nav" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;">
+                        PERFIL
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
+                        <a class="dropdown-item" href="/DojoSearch/views/html/<?php echo $_SESSION['user']['is_admin'] ? 'userAdmin.php' : 'userUser.php'; ?>">Configurar Perfil</a>
+                        <a class="dropdown-item" href="/DojoSearch/controllers/UserController.php?action=logout">Cerrar Sesión</a>
+                    </div>
+                </div>
+            <?php else: ?>
+                <a href="/DojoSearch/views/html/login.php" class="nav-link">PERFIL</a>
+            <?php endif; ?>
         </nav>
     </div>
 
@@ -318,6 +332,8 @@ if (isset($_SESSION['success'])) {
             prevScrollPos = currentScrollPos;
         }
     </script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

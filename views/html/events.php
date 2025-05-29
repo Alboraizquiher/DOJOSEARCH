@@ -24,6 +24,7 @@ UserController::checkSession();
     <link rel="stylesheet" href="../assets/css/events.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap"
         rel="stylesheet">
@@ -44,7 +45,20 @@ UserController::checkSession();
 
         <nav class="nav-menu">
             <a href="../html/events.php">EVENTOS</a>
-            <a href="<?php echo isset($_SESSION['user']) ? ($_SESSION['user']['is_admin'] ? 'userAdmin.php' : 'userUser.php') : 'login.php'; ?>">PERFIL</a>
+            <?php if (!empty($_SESSION['user']) && is_array($_SESSION['user'])): ?>
+                <div class="dropdown">
+                    <a class="dropdown-toggle" href="#" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="<?php echo !empty($_SESSION['user']['photo']) ? 'data:image/jpeg;base64,' . base64_encode($_SESSION['user']['photo']) : 'https://via.placeholder.com/30?text=Sin+Foto'; ?>" alt="Foto de perfil" class="profile-pic-nav" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;">
+                        PERFIL
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
+                        <a class="dropdown-item" href="/DojoSearch/views/html/<?php echo $_SESSION['user']['is_admin'] ? 'userAdmin.php' : 'userUser.php'; ?>">Configurar Perfil</a>
+                        <a class="dropdown-item" href="/DojoSearch/controllers/UserController.php?action=logout">Cerrar Sesión</a>
+                    </div>
+                </div>
+            <?php else: ?>
+                <a href="/DojoSearch/views/html/login.php" class="nav-link">PERFIL</a>
+            <?php endif; ?>
         </nav>
     </div>
 
@@ -611,6 +625,8 @@ UserController::checkSession();
             });
         });
     </script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

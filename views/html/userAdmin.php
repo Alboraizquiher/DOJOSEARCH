@@ -32,8 +32,21 @@ $user = $_SESSION['user'];
         <label for="menu-toggle" class="menu-toggle-label">&#9776;</label>
 
         <nav class="nav-menu">
-            <a href="/DojoSearch/views/html/events.php">EVENTOS</a>
-            <a href="<?php echo isset($_SESSION['user']) ? ($_SESSION['user']['is_admin'] ? 'userAdmin.php' : 'userUser.php') : 'login.php'; ?>">PERFIL</a>
+            <a href="../html/events.php">EVENTOS</a>
+            <?php if (!empty($_SESSION['user']) && is_array($_SESSION['user'])): ?>
+                <div class="dropdown">
+                    <a class="dropdown-toggle" href="#" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="<?php echo !empty($_SESSION['user']['photo']) ? 'data:image/jpeg;base64,' . base64_encode($_SESSION['user']['photo']) : 'https://via.placeholder.com/30?text=Sin+Foto'; ?>" alt="Foto de perfil" class="profile-pic-nav" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;">
+                        PERFIL
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
+                        <a class="dropdown-item" href="/DojoSearch/views/html/<?php echo $_SESSION['user']['is_admin'] ? 'userAdmin.php' : 'userUser.php'; ?>">Configurar Perfil</a>
+                        <a class="dropdown-item" href="/DojoSearch/controllers/UserController.php?action=logout">Cerrar Sesión</a>
+                    </div>
+                </div>
+            <?php else: ?>
+                <a href="/DojoSearch/views/html/login.php" class="nav-link">PERFIL</a>
+            <?php endif; ?>
         </nav>
     </div>
 
@@ -100,6 +113,11 @@ $user = $_SESSION['user'];
                                     Notificaciones
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#account-delete" data-toggle="tab">
+                                    Borrar Cuenta
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -142,8 +160,8 @@ $user = $_SESSION['user'];
                                     </div>
                                 </div>
                                 <div class="profile-actions">
-                                    <button type="button" class="btn btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
-                                    <button type="submit" class="btn btn-save">Guardar cambios</button>
+                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
+                                    <button type="submit" class="btn-save">Guardar cambios</button>
                                 </div>
                             </form>
                         </div>
@@ -160,8 +178,8 @@ $user = $_SESSION['user'];
                                     </div>
                                 </div>
                                 <div class="profile-actions">
-                                    <button type="button" class="btn btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
-                                    <button type="submit" class="btn btn-save">Guardar cambios</button>
+                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
+                                    <button type="submit" class="btn-save">Guardar cambios</button>
                                 </div>
                             </form>
                         </div>
@@ -190,8 +208,8 @@ $user = $_SESSION['user'];
                                     </div>
                                 </div>
                                 <div class="profile-actions">
-                                    <button type="button" class="btn btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
-                                    <button type="submit" class="btn btn-save">Guardar cambios</button>
+                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
+                                    <button type="submit" class="btn-save">Guardar cambios</button>
                                 </div>
                             </form>
                         </div>
@@ -236,8 +254,8 @@ $user = $_SESSION['user'];
                                     </div>
                                 </div>
                                 <div class="profile-actions">
-                                    <button type="button" class="btn btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
-                                    <button type="submit" class="btn btn-save">Guardar cambios</button>
+                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
+                                    <button type="submit" class="btn-save">Guardar cambios</button>
                                 </div>
                             </form>
                         </div>
@@ -272,18 +290,30 @@ $user = $_SESSION['user'];
                                     </div>
                                 </div>
                                 <div class="profile-actions">
-                                    <button type="button" class="btn btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
-                                    <button type="submit" class="btn btn-save">Guardar cambios</button>
+                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
+                                    <button type="submit" class="btn-save">Guardar cambios</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane" id="account-delete">
+                            <form action="/DojoSearch/controllers/UserController.php" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas borrar tu cuenta? Esta acción no se puede deshacer.');">
+                                <input type="hidden" name="action" value="deleteAccount">
+                                <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
+                                <div class="form-group">
+                                    <p>Al borrar tu cuenta, se eliminarán permanentemente todos tus datos, incluyendo tu perfil, preferencias y registros. Esta acción no se puede deshacer.</p>
+                                    <label>
+                                        <input type="checkbox" name="confirm_delete" required>
+                                        Confirmo que deseo borrar mi cuenta.
+                                    </label>
+                                </div>
+                                <div class="profile-actions">
+                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userUser.php'">Cancelar</button>
+                                    <button type="submit" class="btn btn-danger">Borrar Cuenta</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="profile-actions">
-                <button type="button" class="btn btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
-                <button type="button" class="btn btn-save" onclick="alert('Funcionalidad de guardar no implementada aún');">Guardar cambios</button>
             </div>
         </div>
     </section>

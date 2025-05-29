@@ -14,6 +14,7 @@ if (isset($_SESSION['user'])) {
     <title>DojoSearch - Acceso al Dojo</title>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/login.css">
     <link rel="icon" type="image/png" href="../assets/images/logoDS.png">
@@ -238,6 +239,8 @@ if (isset($_SESSION['user'])) {
             prevScrollpos = currentScrollPos;
         }
     </script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
