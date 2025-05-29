@@ -22,7 +22,7 @@ $user = $_SESSION['user'];
 <body>
     <div id="navbar">
         <div class="logo-container">
-            <a href="/DojoSearch/views/html/index.php" class="logo-link">
+            <a href="/DojoSearch/views/php/index.php" class="logo-link">
                 <img src="../assets/images/logoDS.png" alt="Logo" class="logo" />
                 <h2>DojoSearch</h2>
             </a>
@@ -32,8 +32,21 @@ $user = $_SESSION['user'];
         <label for="menu-toggle" class="menu-toggle-label">&#9776;</label>
 
         <nav class="nav-menu">
-            <a href="/DojoSearch/views/html/events.php">EVENTOS</a>
-            <a href="<?php echo isset($_SESSION['user']) ? ($_SESSION['user']['is_admin'] ? 'userAdmin.php' : 'userUser.php') : 'login.php'; ?>">PERFIL</a>
+            <a href="../php/events.php">EVENTOS</a>
+            <?php if (!empty($_SESSION['user']) && is_array($_SESSION['user'])): ?>
+                <div class="dropdown">
+                    <a class="dropdown-toggle" href="#" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="<?php echo !empty($_SESSION['user']['photo']) ? 'data:image/jpeg;base64,' . base64_encode($_SESSION['user']['photo']) : 'https://via.placeholder.com/30?text=Sin+Foto'; ?>" alt="Foto de perfil" class="profile-pic-nav" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;">
+                        PERFIL
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
+                        <a class="dropdown-item" href="/DojoSearch/views/php/<?php echo $_SESSION['user']['is_admin'] ? 'userAdmin.php' : 'userUser.php'; ?>">Configurar Perfil</a>
+                        <a class="dropdown-item" href="/DojoSearch/controllers/UserController.php?action=logout">Cerrar Sesión</a>
+                    </div>
+                </div>
+            <?php else: ?>
+                <a href="/DojoSearch/views/php/login.php" class="nav-link">PERFIL</a>
+            <?php endif; ?>
         </nav>
     </div>
 
@@ -69,7 +82,7 @@ $user = $_SESSION['user'];
 
                     <div class="profile-usertitle">
                         <div class="profile-usertitle-job">
-                            USUARIO
+                            ADMINISTRADOR
                         </div>
                     </div>
 
@@ -100,6 +113,11 @@ $user = $_SESSION['user'];
                                     Notificaciones
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#account-delete" data-toggle="tab">
+                                    Borrar Cuenta
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -108,37 +126,42 @@ $user = $_SESSION['user'];
                         <!-- General Tab -->
                         <div class="tab-pane active" id="account-general">
                             <form action="/DojoSearch/controllers/UserController.php" method="POST" enctype="multipart/form-data">
-                                <input type="hidden" name="action" value="updateUser">
+                                <input type="hidden" name="action" value="updateGeneral">
                                 <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
-
-                                <div class="form-group">
-                                    <label for="name" class="form-label">Nombre:</label>
-                                    <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" class="form-control" required>
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label">Foto de perfil</label>
+                                    <div class="col-lg-9">
+                                        <div class="profile-avatar-container">
+                                            <div class="avatar-actions">
+                                                <label class="btn btn-upload" style="color: white; margin-top: 10px; text-align: left;">
+                                                    <input type="file" name="photo" accept="image/*">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="username" class="form-label">Usuario:</label>
-                                    <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" class="form-control" required>
+                                <hr class="profile-divider">
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label">Nombre de usuario</label>
+                                    <div class="col-lg-9">
+                                        <input type="text" class="form-control" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" required>
+                                    </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="fecha_born" class="form-label">Fecha de Nacimiento:</label>
-                                    <input type="date" id="fecha_born" name="fecha_born" value="<?php echo htmlspecialchars($user['fecha_born']); ?>" class="form-control" required>
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label">Nombre completo</label>
+                                    <div class="col-lg-9">
+                                        <input type="text" class="form-control" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
+                                    </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="email" class="form-label">Email:</label>
-                                    <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" class="form-control" required>
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label">Correo electrónico</label>
+                                    <div class="col-lg-9">
+                                        <input type="email" class="form-control" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
+                                    </div>
                                 </div>
-
-                                <div class="form-group profile-avatar-container">
-                                    <label class="form-label">Foto de Perfil:</label>
-                                    <small class="avatar-note">Solo los administradores pueden cambiar la foto de perfil.</small>
-                                </div>
-
                                 <div class="profile-actions">
-                                    <button type="submit" class="btn-save">Guardar Cambios</button>
-                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/html/<?php echo $user['is_admin'] ? 'userAdmin.php' : 'userUser.php'; ?>'">Cancelar</button>
+                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/php/userAdmin.php'">Cancelar</button>
+                                    <button type="submit" class="btn-save">Guardar cambios</button>
                                 </div>
                             </form>
                         </div>
@@ -155,8 +178,8 @@ $user = $_SESSION['user'];
                                     </div>
                                 </div>
                                 <div class="profile-actions">
-                                    <button type="button" class="btn btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
-                                    <button type="submit" class="btn btn-save">Guardar cambios</button>
+                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/php/userAdmin.php'">Cancelar</button>
+                                    <button type="submit" class="btn-save">Guardar cambios</button>
                                 </div>
                             </form>
                         </div>
@@ -185,8 +208,8 @@ $user = $_SESSION['user'];
                                     </div>
                                 </div>
                                 <div class="profile-actions">
-                                    <button type="button" class="btn btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
-                                    <button type="submit" class="btn btn-save">Guardar cambios</button>
+                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/php/userAdmin.php'">Cancelar</button>
+                                    <button type="submit" class="btn-save">Guardar cambios</button>
                                 </div>
                             </form>
                         </div>
@@ -231,8 +254,8 @@ $user = $_SESSION['user'];
                                     </div>
                                 </div>
                                 <div class="profile-actions">
-                                    <button type="button" class="btn btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
-                                    <button type="submit" class="btn btn-save">Guardar cambios</button>
+                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/php/userAdmin.php'">Cancelar</button>
+                                    <button type="submit" class="btn-save">Guardar cambios</button>
                                 </div>
                             </form>
                         </div>
@@ -267,18 +290,30 @@ $user = $_SESSION['user'];
                                     </div>
                                 </div>
                                 <div class="profile-actions">
-                                    <button type="button" class="btn btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
-                                    <button type="submit" class="btn btn-save">Guardar cambios</button>
+                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/php/userAdmin.php'">Cancelar</button>
+                                    <button type="submit" class="btn-save">Guardar cambios</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane" id="account-delete">
+                            <form action="/DojoSearch/controllers/UserController.php" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas borrar tu cuenta? Esta acción no se puede deshacer.');">
+                                <input type="hidden" name="action" value="deleteAccount">
+                                <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
+                                <div class="form-group">
+                                    <p>Al borrar tu cuenta, se eliminarán permanentemente todos tus datos, incluyendo tu perfil, preferencias y registros. Esta acción no se puede deshacer.</p>
+                                    <label>
+                                        <input type="checkbox" name="confirm_delete" required>
+                                        Confirmo que deseo borrar mi cuenta.
+                                    </label>
+                                </div>
+                                <div class="profile-actions">
+                                    <button type="button" class="btn-cancel" onclick="window.location.href='/DojoSearch/views/php/userUser.php'">Cancelar</button>
+                                    <button type="submit" class="btn btn-danger">Borrar Cuenta</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="profile-actions">
-                <button type="button" class="btn btn-cancel" onclick="window.location.href='/DojoSearch/views/html/userAdmin.php'">Cancelar</button>
-                <button type="button" class="btn btn-save" onclick="alert('Funcionalidad de guardar no implementada aún');">Guardar cambios</button>
             </div>
         </div>
     </section>
@@ -302,21 +337,21 @@ $user = $_SESSION['user'];
             <div class="footer-grid">
                 <div class="footer-column">
                     <div class="footer-brand">
-                        <img src="../assets/images/logoDS.png" alt="DojoSearch Logo" class="footer-logo">
+                        <img src="/DojoSearch/assets/images/logoDS.png" alt="DojoSearch Logo" class="footer-logo">
                         <h3 class="footer-title">DojoSearch</h3>
                     </div>
                     <div class="social-links">
                         <a href="#" class="social-icon" aria-label="Instagram">
-                            <img src="../assets/images/social-media/instagram.png" alt="Instagram">
+                            <img src="/DojoSearch/assets/images/social-media/instagram.png" alt="Instagram">
                         </a>
                         <a href="#" class="social-icon" aria-label="Facebook">
-                            <img src="../assets/images/social-media/facebook.png" alt="Facebook">
+                            <img src="/DojoSearch/assets/images/social-media/facebook.png" alt="Facebook">
                         </a>
                         <a href="#" class="social-icon" aria-label="YouTube">
-                            <img src="../assets/images/social-media/youtube.png" alt="YouTube">
+                            <img src="/DojoSearch/assets/images/social-media/youtube.png" alt="YouTube">
                         </a>
                         <a href="#" class="social-icon" aria-label="LinkedIn">
-                            <img src="../assets/images/social-media/linkedin.png" alt="LinkedIn">
+                            <img src="/DojoSearch/assets/images/social-media/linkedin.png" alt="LinkedIn">
                         </a>
                     </div>
                     <div class="newsletter">
@@ -331,8 +366,8 @@ $user = $_SESSION['user'];
                 <div class="footer-column">
                     <h4 class="footer-heading">Explora</h4>
                     <ul class="footer-links">
-                        <li><a href="../html/events.php">Eventos</a></li>
-                        <li><a href="../html/login.php">Mi Perfil</a></li>
+                        <li><a href="/DojoSearch/views/php/events.php">Eventos</a></li>
+                        <li><a href="/DojoSearch/views/php/userAdmin.php">Mi Perfil</a></li>
                         <li><a href="#">Galería</a></li>
                         <li><a href="#">Blog Marcial</a></li>
                         <li><a href="#">Tienda</a></li>
@@ -343,15 +378,15 @@ $user = $_SESSION['user'];
                     <h4 class="footer-heading">Contacto</h4>
                     <ul class="contact-info">
                         <li>
-                            <img src="../assets/images/icons/pin.png" alt="Ubicación">
+                            <img src="/DojoSearch/assets/images/icons/pin.png" alt="Ubicación">
                             <span>500 Terry Francine St<br>San Francisco, CA 94158</span>
                         </li>
                         <li>
-                            <img src="../assets/images/icons/phone.png" alt="Teléfono">
+                            <img src="/DojoSearch/assets/images/icons/phone.png" alt="Teléfono">
                             <span>123-456-7890</span>
                         </li>
                         <li>
-                            <img src="../assets/images/icons/email.png" alt="Email">
+                            <img src="/DojoSearch/assets/images/icons/email.png" alt="Email">
                             <span>info@dojosearch.com</span>
                         </li>
                     </ul>
@@ -366,7 +401,7 @@ $user = $_SESSION['user'];
                     <a href="#">Términos y condiciones</a>
                     <a href="#">Política de privacidad</a>
                 </div>
-                <p class="copyright">&copy; 2023 DojoSearch. Todos los derechos reservados</p>
+                <p class="copyright">&copy; 2025 DojoSearch. Todos los derechos reservados</p>
             </div>
         </div>
     </footer>

@@ -125,6 +125,27 @@
     color: #fff;
 }
 
+.profile-pic-nav {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.dropdown-menu {
+    min-width: 150px;
+}
+
+.dropdown-item {
+    padding: 8px 15px;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
 /* Profile Content */
 .profile-content {
     flex: 1;

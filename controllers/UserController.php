@@ -12,43 +12,39 @@ class UserController
         $this->handleRequest();
     }
 
-    private function handleRequest()
+    public function handleRequest()
     {
-        if (isset($_GET['logout']) && $_GET['logout'] == 1) {
-            $this->logout();
-        } elseif (isset($_POST['action'])) {
-            switch ($_POST['action']) {
-                case 'login':
-                    $this->login();
-                    break;
-                case 'register':
-                    $this->register();
-                    break;
-                case 'updateUser':
-                    $this->updateUser();
-                    break;
-                case 'deleteUser':
-                    $this->deleteUser();
-                    break;
-                case 'uploadPhoto':
-                    $this->uploadPhoto();
-                    break;
-                case 'updateGeneral':
-                    $this->updateGeneral();
-                    break;
-                case 'updatePassword':
-                    $this->updatePassword();
-                    break;
-                case 'updateInfo':
-                    $this->updateInfo();
-                    break;
-                case 'updateSocial':
-                    $this->updateSocial();
-                    break;
-                case 'updateNotifications':
-                    $this->updateNotifications();
-                    break;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['action'])) {
+                switch ($_POST['action']) {
+                    case 'login':
+                        $this->login();
+                        break;
+                    case 'updateUser':
+                    case 'updateGeneral':
+                        $this->updateUser();
+                        break;
+                    case 'updatePassword':
+                        $this->updatePassword();
+                        break;
+                    case 'updateInfo':
+                        $this->updateInfo();
+                        break;
+                    case 'updateSocial':
+                        $this->updateSocial();
+                        break;
+                    case 'updateNotifications':
+                        $this->updateNotifications();
+                        break;
+                    case 'deleteAccount':
+                        $this->deleteAccount();
+                        break;
+                }
+            } elseif (isset($_POST['register'])) {
+                $this->register();
             }
+        } elseif (isset($_GET['action']) && $_GET['action'] === 'logout') {
+            $this->logout();
         }
     }
 
@@ -98,46 +94,86 @@ class UserController
     public function register()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
+            // Sanitize inputs
             $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
             $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
             $fecha_born = filter_input(INPUT_POST, 'fecha_born', FILTER_SANITIZE_STRING);
-            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $password = $_POST['password'];
+            $confirmPassword = $_POST['confirmPassword'];
+            $terms = isset($_POST['terms']) ? true : false;
+
+            // Validate inputs
+            if (!$terms) {
+                $_SESSION['error'] = 'Debes aceptar los términos y condiciones.';
+                header('Location: /DojoSearch/views/html/register.php');
+                exit();
+            }
+
+            if ($password !== $confirmPassword) {
+                $_SESSION['error'] = 'Las contraseñas no coinciden.';
+                header('Location: /DojoSearch/views/html/register.php');
+                exit();
+            }
+
+            if (strlen($password) < 8 || !preg_match('/\d/', $password) || !preg_match('/[A-Z]/', $password) || !preg_match('/[^A-Za-z0-9]/', $password)) {
+                $_SESSION['error'] = 'La contraseña debe tener al menos 8 caracteres, incluyendo un número, una mayúscula y un carácter especial.';
+                header('Location: /DojoSearch/views/html/register.php');
+                exit();
+            }
+
+            // Hash password
+            $password = password_hash($password, PASSWORD_DEFAULT);
             $is_admin = 0;
             $default_photo_url = 'https://i.pinimg.com/474x/da/96/78/da96780e1b54f46d6ddb13c3e14cec83.jpg';
 
-            $photo = file_get_contents($default_photo_url);
+            // Download default photo
+            $photo = @file_get_contents($default_photo_url);
             if ($photo === false) {
                 $_SESSION['error'] = 'Error al descargar la imagen por defecto.';
                 header('Location: /DojoSearch/views/html/register.php');
                 exit();
             }
 
-            $stmt = $this->conn->prepare("SELECT id FROM users WHERE email = ? OR username = ?");
-            $stmt->bind_param("ss", $email, $username);
-            $stmt->execute();
-            $result = $stmt->get_result();
+            // Check for existing email or username
+            try {
+                $stmt = $this->conn->prepare("SELECT id FROM users WHERE email = :email OR username = :username");
+                $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+                $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+                $stmt->execute();
+                if ($stmt->fetch()) {
+                    $_SESSION['error'] = 'El correo o nombre de usuario ya está registrado.';
+                    header('Location: /DojoSearch/views/html/register.php');
+                    exit();
+                }
 
-            if ($result->num_rows > 0) {
-                $_SESSION['error'] = 'El correo o nombre de usuario ya está registrado.';
+                // Insert new user
+                $stmt = $this->conn->prepare(
+                    "INSERT INTO users (name, username, email, fecha_born, password, is_admin, photo, created_at) 
+                     VALUES (:name, :username, :email, :fecha_born, :password, :is_admin, :photo, NOW())"
+                );
+                $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+                $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+                $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+                $stmt->bindParam(':fecha_born', $fecha_born, PDO::PARAM_STR);
+                $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+                $stmt->bindParam(':is_admin', $is_admin, PDO::PARAM_INT);
+                $stmt->bindParam(':photo', $photo, PDO::PARAM_LOB);
+
+                if ($stmt->execute()) {
+                    $_SESSION['success'] = 'Registro exitoso. Por favor, inicia sesión.';
+                    header('Location: /DojoSearch/views/html/login.php');
+                    exit();
+                } else {
+                    $_SESSION['error'] = 'Error al registrar el usuario.';
+                    header('Location: /DojoSearch/views/html/register.php');
+                    exit();
+                }
+            } catch (PDOException $e) {
+                $_SESSION['error'] = 'Error en la base de datos: ' . $e->getMessage();
                 header('Location: /DojoSearch/views/html/register.php');
                 exit();
             }
-
-            $stmt = $this->conn->prepare(
-                "INSERT INTO users (name, username, email, fecha_born, password, is_admin, photo, created_at) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, NOW())"
-            );
-            $stmt->bind_param("sssssis", $name, $username, $email, $fecha_born, $password, $is_admin, $photo);
-
-            if ($stmt->execute()) {
-                $_SESSION['success'] = 'Registro exitoso. Por favor, inicia sesión.';
-                header('Location: /DojoSearch/views/html/login.php');
-            } else {
-                $_SESSION['error'] = 'Error al registrar el usuario.';
-                header('Location: /DojoSearch/views/html/register.php');
-            }
-            $stmt->close();
         }
     }
 
@@ -570,7 +606,7 @@ class UserController
         exit;
     }
 
-    public function deleteUser()
+    public function deleteAccount()
     {
         if (!isset($_SESSION['user'])) {
             header('Location: ../views/html/login.php');

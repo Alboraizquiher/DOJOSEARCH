@@ -14,6 +14,7 @@ if (isset($_SESSION['user'])) {
     <title>DojoSearch - Acceso al Dojo</title>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/login.css">
     <link rel="icon" type="image/png" href="../assets/images/logoDS.png">
@@ -22,7 +23,7 @@ if (isset($_SESSION['user'])) {
 <body>
     <div id="navbar">
         <div class="logo-container">
-            <a href="../html/index.php" class="logo-link">
+            <a href="../php/index.php" class="logo-link">
                 <img src="../assets/images/logoDS.png" alt="Logo" class="logo" />
                 <h2>DojoSearch</h2>
             </a>
@@ -32,7 +33,7 @@ if (isset($_SESSION['user'])) {
         <label for="menu-toggle" class="menu-toggle-label">&#9776;</label>
 
         <nav class="nav-menu">
-            <a href="../html/events.php">EVENTOS</a>
+            <a href="../php/events.php">EVENTOS</a>
             <a href="<?php echo isset($_SESSION['user']) ? ($_SESSION['user']['is_admin'] ? 'userAdmin.php' : 'userUser.php') : 'login.php'; ?>">PERFIL</a>
         </nav>
     </div>
@@ -130,7 +131,7 @@ if (isset($_SESSION['user'])) {
             </div>
 
             <div class="register-link">
-                ¿No tienes cuenta? <a href="../html/register.php">Únete al Dojo</a>
+                ¿No tienes cuenta? <a href="../php/register.php">Únete al Dojo</a>
             </div>
             </form>
         </div>
@@ -171,8 +172,8 @@ if (isset($_SESSION['user'])) {
                 <div class="footer-column">
                     <h4 class="footer-heading">Explora</h4>
                     <ul class="footer-links">
-                        <li><a href="../html/events.php">Eventos</a></li>
-                        <li><a href="../html/login.php">Mi Perfil</a></li>
+                        <li><a href="../php/events.php">Eventos</a></li>
+                        <li><a href="../php/login.php">Mi Perfil</a></li>
                         <li><a href="#">Galería</a></li>
                         <li><a href="#">Blog Marcial</a></li>
                         <li><a href="#">Tienda</a></li>
@@ -238,6 +239,8 @@ if (isset($_SESSION['user'])) {
             prevScrollpos = currentScrollPos;
         }
     </script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
