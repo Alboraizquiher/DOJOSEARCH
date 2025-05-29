@@ -588,7 +588,10 @@ class UserController
             $stmt = $this->conn->prepare("DELETE FROM users WHERE id = :id");
             $stmt->bindParam(':id', $id);
             if ($stmt->execute()) {
-                $this->logout();
+                session_unset();
+                session_destroy();
+                header('Location: /index.php');
+            exit;
             } else {
                 $_SESSION['error'] = 'Error al eliminar la cuenta.';
                 header('Location: ../views/html/' . ($_SESSION['user']['is_admin'] ? 'userAdmin.php' : 'userUser.php'));
