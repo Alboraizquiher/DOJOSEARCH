@@ -21,8 +21,10 @@ class UserController
                         $this->login();
                         break;
                     case 'updateUser':
-                    case 'updateGeneral':
                         $this->updateUser();
+                        break;
+                    case 'updateGeneral':
+                        $this->updateGeneral();
                         break;
                     case 'updatePassword':
                         $this->updatePassword();
@@ -655,7 +657,7 @@ class UserController
 }
 
 try {
-    $db = new PDO("mysql:host=localhost;dbname=dojosearch", "root", "yogui10332027");
+    $db = new PDO("mysql:host=localhost;dbname=dojosearch", "root", "");
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->exec("SET CHARACTER SET utf8mb4");
 } catch (PDOException $e) {

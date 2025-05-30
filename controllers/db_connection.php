@@ -1,14 +1,17 @@
-<?php
 
-$server = "localhost";
+
+<?php
+$server = "127.0.0.1";
 $user = "root";
-$password = "";
+$password = ""; // contraseña vacía
 $database = "dojosearch";
 $port = 3306;
-$connection = new mysqli($server, $user, $password, $database, $port);
 
-if ($connection->connect_error) {
-  die("No funciona na " . $connection->connect_error);
-} else {
-  echo "Conectado exitosamente";
+try {
+    $connection = new PDO("mysql:host=$server;port=$port;dbname=$database", $user, $password);
+    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+     echo "Conexión exitosa";
+} catch (PDOException $e) {
+    echo "Error de conexión: " . $e->getMessage();
 }
+?>

@@ -56,8 +56,14 @@ $user = $_SESSION['user'];
             <div class="section-header">
                 <span class="section-subtitle">CONFIGURACIÓN DE</span>
                 <h2 class="section-title">MI PERFIL</h2>
+
+        
                 <div class="divider-red"></div>
+                
             </div>
+
+
+
 
             <!-- Mensajes de error o éxito -->
             <?php if (isset($_SESSION['error'])): ?>
