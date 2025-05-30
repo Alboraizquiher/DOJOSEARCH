@@ -12,6 +12,20 @@ session_set_cookie_params([
 session_start();
 require_once '../../controllers/UserController.php';
 UserController::checkSession();
+
+if (isset($_GET['deleted']) && $_GET['deleted'] === '1') {
+    $_SESSION = [];
+    if (ini_get("session.use_cookies")) {
+        $params = session_get_cookie_params();
+        setcookie(session_name(), '', time() - 42000,
+            $params["path"], $params["domain"],
+            $params["secure"], $params["httponly"]
+        );
+    }
+    session_destroy();
+    header("Location: /DojoSearch/views/php/index.php");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -588,6 +602,12 @@ UserController::checkSession();
     </footer>
 
     <script>
+        // Confirmation message before the deletion of an event
+        function confirmDeletion(url) {
+            if (confirm('¿Estás seguro de que deseas eliminar este evento? Esta acción no se puede deshacer.')) {
+                window.location.href = url;
+            }
+        }
         // Navbar scroll effect
         var prevScrollpos = window.pageYOffset;
         window.onscroll = function() {
