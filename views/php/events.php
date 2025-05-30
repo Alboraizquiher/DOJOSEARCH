@@ -602,6 +602,12 @@ if (isset($_GET['deleted']) && $_GET['deleted'] === '1') {
     </footer>
 
     <script>
+        // Confirmation message before the deletion of an event
+        function confirmDeletion(url) {
+            if (confirm('¿Estás seguro de que deseas eliminar este evento? Esta acción no se puede deshacer.')) {
+                window.location.href = url;
+            }
+        }
         // Navbar scroll effect
         var prevScrollpos = window.pageYOffset;
         window.onscroll = function() {
