@@ -372,4 +372,116 @@ input:checked+.slider:before {
     .btn-save {
         width: 100%;
     }
+
+
+    
+}
+
+body {
+    background-color: #000;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.profile-container {
+    max-width: 700px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: #111;
+    border-radius: 10px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 2rem;
+}
+
+.form-evento .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-evento label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: white;
+    font-weight: 600;
+}
+
+.form-evento input,
+.form-evento textarea {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #1a1a1a;
+    border: 1px solid #555;
+    border-radius: 5px;
+    color: white;
+}
+
+.form-evento input::placeholder,
+.form-evento textarea::placeholder {
+    color: #aaa;
+}
+
+.btn-save,
+.btn-delete {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-save {
+    background-color: #9b0000;
+    color: white;
+}
+
+.btn-save:hover {
+    background-color: #c20000;
+}
+
+.btn-delete {
+    background-color: #444;
+    color: white;
+    margin-left: 1rem;
+}
+
+.btn-delete:hover {
+    background-color: #e00000;
+}
+
+.event-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 2rem;
+}
+
+.event-list li {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 6px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.btn-edit {
+  background-color: #444;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: none;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.btn-edit:hover {
+  background-color: #a30000;
+  color: white;
 }

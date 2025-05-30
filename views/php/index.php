@@ -27,7 +27,7 @@ session_start();
     <label for="menu-toggle" class="menu-toggle-label">&#9776;</label>
 
     <nav class="nav-menu">
-      <a href="../php/events.php">EVENTOS</a>
+      <a href="../html/events.php">EVENTOS</a>
       <?php if (!empty($_SESSION['user']) && is_array($_SESSION['user'])): ?>
         <div class="dropdown">
           <a class="dropdown-toggle" href="#" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

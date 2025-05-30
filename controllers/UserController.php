@@ -2,6 +2,10 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+require_once 'db_connection.php'; // asegúrate de que esto apunte bien
+
+
 class UserController
 {
     private $conn;
